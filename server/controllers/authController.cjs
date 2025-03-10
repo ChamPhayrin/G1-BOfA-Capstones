@@ -1,56 +1,82 @@
-const usersDB = {
-	users: require("../../data/users.json"),
-	setUsers: function (data) {
-		this.users = data;
-	},
-};
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
-const fsPromises = require("fs").promises;
-const path = require("path");
+const connection = require("../configs/dbconfig.cjs");
 
 const handleLogin = async (req, res) => {
   const { user, pwd } = req.body;
-  if (!user || !pwd) return res.status(400).json({ message: "Username and password are required." });
 
-  const foundUser = usersDB.users.find(person => person.username === user);
-  if (!foundUser) return res.sendStatus(401); // Unauthorized
+  // Validate input
+  if (!user || !pwd) {
+    return res.status(400).json({ message: "Username and password are required." });
+  }
 
-  const match = await bcrypt.compare(pwd, foundUser.password);
-  if (!match) return res.sendStatus(401); // Unauthorized
+  try {
+    // Find the user in the database
+    const query = `
+      SELECT u.*, r.role_code 
+      FROM users u
+      JOIN roles r ON u.role_id = r.id
+      WHERE u.username = ?
+    `;
+    const [rows] = await connection.execute(query, [user]);
 
-  const roles = Object.values(foundUser.roles);
-  const accessToken = jwt.sign(
-    {
-      "UserInfo": {
-        "username": foundUser.username,
-        "roles": roles
-      }
-    },
-    process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: '30s' }
-  );
+    // Check if the user exists
+    if (rows.length === 0) {
+      return res.status(401).json({ message: "Unauthorized: User not found" });
+    }
 
-  const refreshToken = jwt.sign(
-    { "username": foundUser.username },
-    process.env.REFRESH_TOKEN_SECRET,
-    { expiresIn: '1d' }
-  );
+    const foundUser = rows[0];
 
-  // Save refreshToken with current user
-  const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username);
-  const currentUser = { ...foundUser, refreshToken }; // Update the user's refreshToken
-  usersDB.setUsers([...otherUsers, currentUser]);
+    // Debugging: Log the password fields (only in development)
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Plain Text Password:', pwd);
+      console.log('Hashed Password:', foundUser.password_hash);
+    }
 
-  await fsPromises.writeFile(
-    path.join('../../data/users.json'),
-    JSON.stringify(usersDB.users)
-  );
+    // Compare the password
+    const match = await bcrypt.compare(pwd, foundUser.password_hash);
+    if (!match) {
+      return res.status(401).json({ message: "Unauthorized: Incorrect password" });
+    }
 
-  res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 });
-  res.json({ accessToken });
+    // Generate access token
+    const accessToken = jwt.sign(
+      {
+        UserInfo: {
+          username: foundUser.username,
+          role_code: foundUser.role_code, // Include role_code in the token payload
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "15m" } // Access token expires in 15 minutes
+    );
+
+    // Generate refresh token
+    const refreshToken = jwt.sign(
+      { username: foundUser.username },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: "1d" } // Refresh token expires in 1 day
+    );
+
+    // Save the refresh token in the database
+    const updateRefreshTokenQuery = 'UPDATE users SET refreshToken = ? WHERE username = ?';
+    await connection.execute(updateRefreshTokenQuery, [refreshToken, foundUser.username]);
+
+    // Set the refresh token in an HTTP-only cookie
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Send cookie only over HTTPS in production
+      sameSite: 'Strict', // Prevent CSRF attacks
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+
+    // Send the access token in the response
+    res.json({ accessToken });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = { handleLogin };

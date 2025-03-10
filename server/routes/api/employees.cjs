@@ -1,22 +1,17 @@
 const express = require("express");
 const router = express.Router();
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-const path = require("path");
 const employeesController = require("../../controllers/employeesController.cjs");
-const ROLES_LIST = require("../../configs/roles_list.cjs");
-const verifyRoles = require("../../middleware/verifyRoles.cjs");
+const verifyRoles = require("../../middleware/verifyRoles.cjs")
 
 
+// Routes
+router.route("/")
+  .get(verifyRoles(5150), employeesController.getAllEmployees) // Admin only
+  .post(verifyRoles(5150), employeesController.createEmployee) // Admin only
+  .delete(verifyRoles(5150), employeesController.deleteEmployee) // Admin only
 
 
-//routes
-router.route("/") //allows you to define multiple requests on the same route
-  .get(employeesController.getAllEmployees)
-  .post(verifyRoles(ROLES_LIST.admin), employeesController.createEmployee)
-  .put(verifyRoles(ROLES_LIST.admin), employeesController.updateEmployee)
-  .delete(verifyRoles(ROLES_LIST.admin), employeesController.deleteEmployee);
-router.route("/:id") //parameter in url 
-  .get(employeesController.getEmployee);
+router.route("/:id")
+  .get(verifyRoles(5150), employeesController.getEmployee); // Admin only
 
-module.exports = router; //export the router
+module.exports = router;
