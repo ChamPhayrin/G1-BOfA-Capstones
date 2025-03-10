@@ -6,7 +6,7 @@ import "./App.css";
 
 // Importing Header component
 import { Header } from "./components/Header";
-// Improting Footer component
+// Importing Footer component
 import Footer from "./components/Footer";
 
 // Importing Page components for our Routes components

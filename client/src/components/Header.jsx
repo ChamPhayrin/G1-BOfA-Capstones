@@ -13,7 +13,7 @@ export function Header() {
 
   // location = obj that holds "pathname" property we want
   const location = useLocation();
-  // location.pathname = current route (Home = /, Profile = /profile)
+  // location.pathname = current route (Home = /, login = /login)
 
   // useEffect will run everytime location.pathway changes, essentially meaning once the sidenav is open and a new Link is clicked, the sidenav with auto close since state is set back to false
   useEffect(() => {
@@ -53,7 +53,6 @@ export function Header() {
           <NavLink to="/signup" className="hover:text-blue-400">
             Sign Up
           </NavLink>
-          {/* Profile but no settings link. Looks too much of navbar. We'll have a settings button on the top of the profile page */}
           <NavLink to="/login" className="hover:text-blue-400">
             Login
           </NavLink>
