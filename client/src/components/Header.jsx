@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // Imports NavLink which allows us to switch pages in React without reloading
 // Imports useLocation to track the current route and trigger the sidenav to close once the user navigates to a different page, thus changing the route
 // useLoco = returns obj respresenting current URL and updates auto when changes
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 
 // Semantic Header component which holds our Navbar
 export function Header() {
@@ -33,8 +33,8 @@ export function Header() {
           <img src="hamburger-menu.svg" alt="" />
         </button>
 
-        {/* Change h1 for logo img later */}
-        <h1 className="text-2xl font-bold">Capstone</h1>
+        {/* When I surround this with <a> or <Link>, it doesn't work */}
+       <img src="logo.png" alt="" className="w-1/5 h-auto" />       
 
         {/* Empty Placeholder for Right Side of Navbar (Mobile/Tablet). We use this so when we use space-between on our nav's flexbox, our logo stays centered */}
         <div className="w-7 h-7"></div>
@@ -79,13 +79,13 @@ export function Header() {
               </button>
 
               <ul>
-                <li>
+                <li className="list-none text-lg">
                   <NavLink to="/" className="hover:text-blue-400 flex mb-4">
                     <img src="home.svg" alt="Home icon" className="mr-2" />
                     Home
                   </NavLink>
                 </li>
-                <li>
+                <li className="list-none text-lg">
                   <NavLink
                     to="/contact"
                     className="hover:text-blue-400 flex mb-4"
@@ -98,7 +98,7 @@ export function Header() {
                     Contact
                   </NavLink>
                 </li>
-                <li>
+                <li className="list-none text-lg">
                   <NavLink
                     to="/signup"
                     className="hover:text-blue-400 flex mb-4"
@@ -107,7 +107,7 @@ export function Header() {
                     Sign Up
                   </NavLink>
                 </li>
-                <li>
+                <li className="list-none text-lg">
                   <NavLink
                     to="/login"
                     className="hover:text-blue-400 flex mb-4"
