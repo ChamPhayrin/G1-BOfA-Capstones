@@ -59,15 +59,29 @@ export default function Login() {
   return (
     <>
       {success ? (
-        <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-[rgba(0,0,0,0.4)]">
-          <h1 className="text-white text-2xl mb-4">You're logged in!</h1>
-          <p className="underline">
-            <a href="#">Go to Home</a>
-          </p>
+        <section className="flex min-h-screen">
+          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gray-800 text-white">
+            <h1 className="text-2xl mb-4">You're logged in!</h1>
+            <p className="underline">
+              <a href="#">Go to Home</a>
+            </p>
+          </div>
+          <div
+            className="hidden md:block w-1/2 bg-cover bg-center"
+            style={{
+              backgroundImage: 'url("/purpleShirt.avif")',
+            }}
+          ></div>
         </section>
       ) : (
-        <main>
-          <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-[rgba(0,0,0,0.4)]">
+        <section className="flex min-h-screen bg-gray-100">
+          {/* Image on the left */}
+          <div
+            className="hidden md:block w-1/2 bg-cover bg-center"
+            style={{ backgroundImage: 'url("/purpleShirt.avif")' }}
+          ></div>
+          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white text-black">
+            {/* Error Message */}
             <p
               ref={errRef}
               className={`${
@@ -80,47 +94,62 @@ export default function Login() {
               {errMsg}
             </p>
 
-            <h1 className="text-white text-2xl mb-4">Sign In</h1>
+            {/* Form Title */}
+            <h1 className="text-blue-600 text-2xl text-center mb-4">Sign In</h1>
 
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="username" className="text-white mt-4">
-                Username:
-              </label>
-              <input
-                type="text"
-                id="username"
-                ref={userRef}
-                autoComplete="off"
-                onChange={(e) => setUser(e.target.value)}
-                value={user}
-                required
-                className="w-full p-2 rounded-lg text-black bg-white"
-              />
-              <label htmlFor="password" className="text-white mt-4">
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
-                required
-                className="w-full p-2 rounded-lg text-black bg-white"
-              />
+            {/* Form Container with Box Shadow */}
+            <div className="w-full max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+              <form onSubmit={handleSubmit}>
+                {/* Username */}
+                <label
+                  htmlFor="username"
+                  className="block text-left text-lg font-semibold mb-2 text-black"
+                >
+                  Username:
+                </label>
+                <input
+                  type="text"
+                  id="username"
+                  ref={userRef}
+                  autoComplete="off"
+                  onChange={(e) => setUser(e.target.value)}
+                  value={user}
+                  required
+                  className="w-full p-3 rounded-lg text-black bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
 
-              <button className="w-full py-2 mt-4 bg-blue-500 text-white rounded-lg">
-                Sign In
-              </button>
-            </form>
+                {/* Password */}
+                <label
+                  htmlFor="password"
+                  className="block text-left text-lg font-semibold mb-2 text-black"
+                >
+                  Password:
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  onChange={(e) => setPwd(e.target.value)}
+                  value={pwd}
+                  required
+                  className="w-full p-3 rounded-lg text-black bg-white border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
 
-            <p className="text-white mt-4">
+                {/* Submit Button */}
+                <button className="w-full py-3 mt-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  Sign In
+                </button>
+              </form>
+            </div>
+
+            {/* Sign up Link */}
+            <p className="text-center text-black mt-4">
               Need an Account? <br />
-              <span className="underline">
+              <span className="underline text-blue-600">
                 <a href="#">Sign up</a>
               </span>
             </p>
-          </section>
-        </main>
+          </div>
+        </section>
       )}
     </>
   );
