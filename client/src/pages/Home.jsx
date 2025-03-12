@@ -1,6 +1,7 @@
 import React from "react";
 import Welcome from "../components/Welcome";
 import SocialCard from "../components/SocialCard";
+import Article from "../components/Article";
 
 const Home = () => {
   return (
@@ -22,7 +23,7 @@ const Home = () => {
         <Welcome text="Technology isn’t just for the young—it’s for everyone! Stay connected, explore new opportunities, and discover how easy and fun it can be to learn and engage online. Join us today and take the first step toward mastering the digital world!" />
       </div>
 
-      {/* Social Cards with Correct Links */}
+      {/* Social Cards */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 w-3/4 max-w-4xl">
         {/* Facebook */}
         <SocialCard
@@ -59,23 +60,41 @@ const Home = () => {
           buttonText="Search Now"
           onClick={() => window.open("https://www.google.com", "_blank")}
         />
+      </div>
 
-        {/* LinkedIn */}
-        <SocialCard
-          logo="💼"
-          title="LinkedIn"
-          text="Stay professionally connected and explore new career opportunities."
-          buttonText="Join LinkedIn"
-          onClick={() => window.open("https://www.linkedin.com", "_blank")}
+      {/* Articles Section */}
+      <h2 className="text-3xl font-bold mt-16">Latest Tech Articles</h2>
+      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 w-3/4 max-w-4xl">
+        {/* Article 1: Online Safety */}
+        <Article
+          category="Online Safety"
+          title="5 Tips To Keep Seniors Safe Online"
+          description="Discover essential tips to protect yourself from online threats."
+          link="https://www.linkedin.com/pulse/5-tips-keep-seniors-safe-online-amica-senior-lifestyles-ox6oc"
         />
 
-        {/* WhatsApp */}
-        <SocialCard
-          logo="💬"
-          title="WhatsApp"
-          text="Easily message, call, and stay in touch with family and friends."
-          buttonText="Start Chatting"
-          onClick={() => window.open("https://www.whatsapp.com", "_blank")}
+        {/* Article 2: Supporting Technology Use */}
+        <Article
+          category="Technology Support"
+          title="Supporting Older People to Use Technology"
+          description="Learn how to assist seniors in embracing modern technology safely."
+          link="https://www.linkedin.com/pulse/supporting-older-people-use-technology-michael-jeffrey-xyrhc"
+        />
+
+        {/* Article 3: Protecting Against Scams */}
+        <Article
+          category="Fraud Protection"
+          title="Protecting Seniors From Scams"
+          description="Understand common scams targeting seniors and how to avoid them."
+          link="https://www.linkedin.com/pulse/protecting-seniors-from-scams-eydle-aph2e"
+        />
+
+        {/* Article 4: Social Media Safety */}
+        <Article
+          category="Social Media Safety"
+          title="Review Online Safety Tips for Seniors"
+          description="Stay safe on social media platforms with these essential tips."
+          link="https://www.linkedin.com/pulse/stay-safe-online-2025-6-simple-cybersecurity-tips-kevin-richardson-xodmc/"
         />
       </div>
     </div>
