@@ -9,11 +9,14 @@ import { Header } from "./components/Header";
 // Importing Footer component
 import Footer from "./components/Footer";
 
-// Importing Page components for our Routes components
+// Importing Tab Page components for our Routes components
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+
+// Import Article Page components
+import Facebook from "./pages/Facebook";
 
 function App() {
   return (
@@ -25,6 +28,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/facebook" element={<Facebook />} />
         </Routes>
       </Router>
 
