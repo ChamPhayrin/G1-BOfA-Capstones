@@ -74,7 +74,7 @@ export default function Login() {
             #3b82f6
           );
           background-size: 400% 400%;
-          animation: gradientAnimation 15s ease infinite;
+          animation: gradientAnimation 25s ease infinite;
         }
 
         @keyframes gradientAnimation {
