@@ -3,11 +3,16 @@ import {
   faCheck,
   faTimes,
   faInfoCircle,
+  faEye,
+  faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 
-export default function Register({ register_url, title }) {
+export default function Register({
+  register_url = "/register",
+  title = "Create an Account",
+}) {
   const user_regex = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
   const pwd_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).{8,24}$/;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,13 +31,16 @@ export default function Register({ register_url, title }) {
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
 
   const [matchPwd, setMatchPwd] = useState("");
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
+  const [showMatchPwd, setShowMatchPwd] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -61,10 +69,14 @@ export default function Register({ register_url, title }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Double-check validation
     if (!validName || !validEmail || !validPwd || !validMatch) {
       setErrMsg("Invalid input. Please check your entries.");
       return;
     }
+
+    setIsLoading(true);
 
     try {
       const response = await axios.post(
@@ -90,235 +102,468 @@ export default function Register({ register_url, title }) {
         setErrMsg("Registration failed");
       }
       errRef.current.focus();
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <>
+    <div className="min-h-screen  flex">
       {success ? (
-        <section className="flex min-h-screen">
-          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gray-800 text-white">
-            <h1 className="text-2xl mb-4">Success!</h1>
-            <p className="underline">
-              <a href="#">Sign in</a>
-            </p>
-          </div>
-          <div
-            className="hidden md:block w-1/2 bg-cover bg-center"
-            style={{ backgroundImage: 'url("/path/to/your/image.jpg")' }}
-          ></div>
-        </section>
-      ) : (
-        <section className="flex min-h-screen">
-          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-white text-black">
-            <p
-              ref={errRef}
-              className={`${
-                errMsg
-                  ? "bg-lightpink text-firebrick font-bold p-2 mb-2"
-                  : "absolute left-[-9999px]"
-              }`}
-              aria-live="assertive"
-            >
-              {errMsg}
-            </p>
-            <h1 className="text-2xl mb-4">{title}</h1>
-            <div className="max-w-md mx-auto w-full">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Username input */}
-                <div className="flex flex-col">
-                  <label htmlFor="username" className="text-black mt-2">
-                    Username:
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="username"
-                      ref={userRef}
-                      autoComplete="off"
-                      onChange={(e) => setUser(e.target.value)}
-                      required
-                      aria-invalid={validName ? "false" : "true"}
-                      onFocus={() => setUserFocus(true)}
-                      onBlur={() => setUserFocus(false)}
-                      className="w-full p-2 rounded-lg text-black border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validName ? "text-green-500" : "hidden"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validName || !user ? "hidden" : "text-red-500"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </span>
-                  </div>
-                  <p
-                    className={`${
-                      userFocus && user && !validName
-                        ? "text-sm rounded-lg bg-black text-white p-1"
-                        : "absolute left-[-9999px]"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />4 to
-                    24 characters. Must begin with a letter.
-                  </p>
-                </div>
-
-                {/* Email input */}
-                <div className="flex flex-col">
-                  <label htmlFor="email" className="text-black mt-4">
-                    Email:
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      id="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
-                      aria-invalid={validEmail ? "false" : "true"}
-                      onFocus={() => setEmailFocus(true)}
-                      onBlur={() => setEmailFocus(false)}
-                      className="w-full p-2 rounded-lg text-black border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validEmail ? "text-green-500" : "hidden"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validEmail || !email ? "hidden" : "text-red-500"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </span>
-                  </div>
-                  <p
-                    className={`${
-                      emailFocus && email && !validEmail
-                        ? "text-sm rounded-lg bg-black text-white p-1"
-                        : "absolute left-[-9999px]"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
-                    Must be a valid email address.
-                  </p>
-                </div>
-
-                {/* Password input */}
-                <div className="flex flex-col">
-                  <label htmlFor="password" className="text-black mt-4">
-                    Password:
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="password"
-                      onChange={(e) => setPwd(e.target.value)}
-                      required
-                      aria-invalid={validPwd ? "false" : "true"}
-                      onFocus={() => setPwdFocus(true)}
-                      onBlur={() => setPwdFocus(false)}
-                      className="w-full p-2 rounded-lg text-black border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validPwd ? "text-green-500" : "hidden"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validPwd || !pwd ? "hidden" : "text-red-500"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </span>
-                  </div>
-                  <p
-                    className={`${
-                      pwdFocus && pwd && !validPwd
-                        ? "text-sm rounded-lg bg-black text-white p-1"
-                        : "absolute left-[-9999px]"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />8 to
-                    24 characters. Must include uppercase, lowercase, and a
-                    special character.
-                  </p>
-                </div>
-
-                {/* Confirm Password input */}
-                <div className="flex flex-col">
-                  <label htmlFor="confirm_pwd" className="text-black mt-4">
-                    Confirm Password:
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="password"
-                      id="confirm_pwd"
-                      onChange={(e) => setMatchPwd(e.target.value)}
-                      required
-                      aria-invalid={validMatch ? "false" : "true"}
-                      onFocus={() => setMatchFocus(true)}
-                      onBlur={() => setMatchFocus(false)}
-                      className="w-full p-2 rounded-lg text-black border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validMatch && matchPwd ? "text-green-500" : "hidden"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
-                    <span
-                      className={`absolute right-3 top-3 ${
-                        validMatch || !matchPwd ? "hidden" : "text-red-500"
-                      }`}
-                    >
-                      <FontAwesomeIcon icon={faTimes} />
-                    </span>
-                  </div>
-                  <p
-                    className={`${
-                      matchFocus && matchPwd && !validMatch
-                        ? "text-sm rounded-lg bg-black text-white p-1"
-                        : "absolute left-[-9999px]"
-                    }`}
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
-                    Must match the password field.
-                  </p>
-                </div>
-
-                {/* Submit button */}
-                <button
-                  disabled={
-                    !validName || !validEmail || !validPwd || !validMatch
-                  }
-                  className="bg-blue-500 text-white p-3 mt-6 rounded-lg disabled:bg-gray-400 w-full"
+        <div className="w-full flex">
+          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+            <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden p-8 text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-8 w-8 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  Sign Up
-                </button>
-              </form>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Registration Successful!
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Your account has been created successfully.
+              </p>
+              <a
+                href="#"
+                className="block w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition duration-200"
+              >
+                Sign In
+              </a>
             </div>
           </div>
-          {/* Image on the right */}
+          {/* Keep your image on the right */}
           <div
             className="hidden md:block w-1/2 bg-cover bg-center"
             style={{ backgroundImage: 'url("./public/cuties.avif")' }}
           ></div>
-        </section>
+        </div>
+      ) : (
+        <div className="w-full flex">
+          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+            <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+              {/* Header with decorative element */}
+              <div className="relative h-16 bg-gradient-to-r from-sky-600 to-slate-600">
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6 text-indigo-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-8 pt-10">
+                <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+                  {title}
+                </h1>
+
+                {/* Error Message */}
+                {errMsg && (
+                  <div
+                    ref={errRef}
+                    className="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"
+                    aria-live="assertive"
+                  >
+                    <div className="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        />
+                      </svg>
+                      {errMsg}
+                    </div>
+                  </div>
+                )}
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Username field */}
+                  <div>
+                    <label
+                      htmlFor="username"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Username
+                      <span
+                        className={validName ? "text-green-500 ml-2" : "hidden"}
+                      >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </span>
+                      <span
+                        className={
+                          validName || !user ? "hidden" : "text-red-500 ml-2"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTimes} />
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(e) => setUser(e.target.value)}
+                        value={user}
+                        required
+                        aria-invalid={validName ? "false" : "true"}
+                        aria-describedby="uidnote"
+                        onFocus={() => setUserFocus(true)}
+                        onBlur={() => setUserFocus(false)}
+                        className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Enter a username"
+                      />
+                    </div>
+                    <div
+                      className={
+                        userFocus && user && !validName ? "mt-1" : "sr-only"
+                      }
+                    >
+                      <p
+                        id="uidnote"
+                        className="text-xs text-gray-600 bg-gray-100 p-2 rounded-md"
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        4 to 24 characters.
+                        <br />
+                        Must begin with a letter.
+                        <br />
+                        Letters, numbers, underscores, hyphens allowed.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Email field */}
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Email
+                      <span
+                        className={
+                          validEmail ? "text-green-500 ml-2" : "hidden"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </span>
+                      <span
+                        className={
+                          validEmail || !email ? "hidden" : "text-red-500 ml-2"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTimes} />
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        id="email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        required
+                        aria-invalid={validEmail ? "false" : "true"}
+                        aria-describedby="emailnote"
+                        onFocus={() => setEmailFocus(true)}
+                        onBlur={() => setEmailFocus(false)}
+                        className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Enter your email"
+                      />
+                    </div>
+                    <div
+                      className={
+                        emailFocus && email && !validEmail ? "mt-1" : "sr-only"
+                      }
+                    >
+                      <p
+                        id="emailnote"
+                        className="text-xs text-gray-600 bg-gray-100 p-2 rounded-md"
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        Must be a valid email address.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Password field */}
+                  <div>
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Password
+                      <span
+                        className={validPwd ? "text-green-500 ml-2" : "hidden"}
+                      >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </span>
+                      <span
+                        className={
+                          validPwd || !pwd ? "hidden" : "text-red-500 ml-2"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTimes} />
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type={showPwd ? "text" : "password"}
+                        id="password"
+                        onChange={(e) => setPwd(e.target.value)}
+                        value={pwd}
+                        required
+                        aria-invalid={validPwd ? "false" : "true"}
+                        aria-describedby="pwdnote"
+                        onFocus={() => setPwdFocus(true)}
+                        onBlur={() => setPwdFocus(false)}
+                        className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Create a password"
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                        onClick={() => setShowPwd(!showPwd)}
+                      >
+                        <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} />
+                      </button>
+                    </div>
+                    <div className={pwdFocus && !validPwd ? "mt-1" : "sr-only"}>
+                      <p
+                        id="pwdnote"
+                        className="text-xs text-gray-600 bg-gray-100 p-2 rounded-md"
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        8 to 24 characters.
+                        <br />
+                        Must include uppercase and lowercase letters and a
+                        special character.
+                        <br />
+                        Allowed special characters:{" "}
+                        <span aria-label="exclamation mark">!</span>{" "}
+                        <span aria-label="at symbol">@</span>{" "}
+                        <span aria-label="hashtag">#</span>{" "}
+                        <span aria-label="dollar sign">$</span>{" "}
+                        <span aria-label="percent">%</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Confirm Password field */}
+                  <div>
+                    <label
+                      htmlFor="confirm_pwd"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Confirm Password
+                      <span
+                        className={
+                          validMatch && matchPwd
+                            ? "text-green-500 ml-2"
+                            : "hidden"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faCheck} />
+                      </span>
+                      <span
+                        className={
+                          validMatch || !matchPwd
+                            ? "hidden"
+                            : "text-red-500 ml-2"
+                        }
+                      >
+                        <FontAwesomeIcon icon={faTimes} />
+                      </span>
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5 text-gray-400"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type={showMatchPwd ? "text" : "password"}
+                        id="confirm_pwd"
+                        onChange={(e) => setMatchPwd(e.target.value)}
+                        value={matchPwd}
+                        required
+                        aria-invalid={validMatch ? "false" : "true"}
+                        aria-describedby="confirmnote"
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
+                        className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        placeholder="Confirm your password"
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                        onClick={() => setShowMatchPwd(!showMatchPwd)}
+                      >
+                        <FontAwesomeIcon
+                          icon={showMatchPwd ? faEyeSlash : faEye}
+                        />
+                      </button>
+                    </div>
+                    <div
+                      className={matchFocus && !validMatch ? "mt-1" : "sr-only"}
+                    >
+                      <p
+                        id="confirmnote"
+                        className="text-xs text-gray-600 bg-gray-100 p-2 rounded-md"
+                      >
+                        <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        Must match the first password input field.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={
+                      !validName ||
+                      !validEmail ||
+                      !validPwd ||
+                      !validMatch ||
+                      isLoading
+                    }
+                    className="w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r from-sky-600 to-slate-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 flex justify-center disabled:bg-indigo-300 disabled:cursor-not-allowed"
+                  >
+                    {isLoading ? (
+                      <svg
+                        className="animate-spin h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                    ) : (
+                      "Sign up"
+                    )}
+                  </button>
+                </form>
+
+                <p className="mt-6 text-center text-sm text-gray-600">
+                  Already have an account?{" "}
+                  <a
+                    href="/login"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Sign in
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Keep your image on the right */}
+          <div
+            className="hidden md:block w-1/2 bg-cover bg-center"
+            style={{ backgroundImage: 'url("./cuties.avif")' }}
+          ></div>
+        </div>
       )}
-    </>
+    </div>
   );
 }

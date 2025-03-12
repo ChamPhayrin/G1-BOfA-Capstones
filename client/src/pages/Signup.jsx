@@ -6,7 +6,7 @@ export default function Signup() {
     <main>
       <Register
         register_url={"/register"}
-        title={<h1 style={{ textAlign: "center" }}>Register</h1>}
+        title={<h1 style={{ textAlign: "center" }}>Sign Up</h1>}
       />
     </main>
   );
