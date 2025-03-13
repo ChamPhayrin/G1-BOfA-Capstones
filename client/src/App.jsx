@@ -21,6 +21,7 @@ import Youtube from "./pages/Youtube";
 import Gmail from "./pages/Gmail";
 import Zoom from "./pages/Zoom";
 import Google from "./pages/Google";
+import Amazon from "./pages/Amazon";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/gmail" element={<Gmail />} />
           <Route path="/zoom" element={<Zoom />} />
           <Route path="/google" element={<Google />} />
+          <Route path="/amazon" element={<Amazon />} />
         </Routes>
       </Router>
 
