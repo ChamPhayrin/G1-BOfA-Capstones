@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 
 // Import Article Page components
 import Facebook from "./pages/Facebook";
+import Youtube from "./pages/Youtube";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/facebook" element={<Facebook />} />
+          <Route path="/youtube" element={<Youtube />} />
         </Routes>
       </Router>
 
