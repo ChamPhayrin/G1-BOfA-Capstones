@@ -56,6 +56,8 @@ export default function YouTube() {
     ],
 
     videoUrl: "https://www.youtube.com/embed/i2xxV91um8w?si=1nRuW1I9AwngaSdg",
+    finalThoughts:
+      "YouTube is like a never-ending TV with anything you want to watch. Learn, relax, and enjoy—whenever you want. No complicated setup, no waiting—just search and watch. Give it a try, and soon, you’ll be watching videos like a pro!",
   };
 
   // Using spread operator to dynamically make all key:value pairs props in our component
