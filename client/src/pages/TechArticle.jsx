@@ -7,7 +7,7 @@ export default function TechArticle({
   whyUse,
   steps,
   videoUrl,
-  finalThoughts
+  finalThoughts,
 }) {
   return (
     <article className="text-lg">
@@ -78,7 +78,7 @@ export default function TechArticle({
         <iframe
           className="w-full h-auto min-h-[250px]"
           src={videoUrl}
-          title="YouTube video player"
+          title={`${articleTitle} Tutorial Video`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
@@ -88,9 +88,7 @@ export default function TechArticle({
       {/* Final Thoughts Section */}
       <section>
         <h2 className="text-center font-bold text-3xl pt-10">Final Thoughts</h2>
-        <p>
-          {finalThoughts}
-        </p>
+        <p>{finalThoughts}</p>
       </section>
     </article>
   );
