@@ -12,7 +12,7 @@ import { Header } from "./components/Header";
 // Importing Footer component
 import Footer from "./components/Footer";
 
-// Importing Page components for our Routes components
+// Importing Tab Page components for our Routes components
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
@@ -27,6 +27,9 @@ import PersistLogin from "./components/PersistLogin";
 //Production env
 const isProduction = process.env.NODE_ENV === "production";
 
+// Import Article Page components
+import Facebook from "./pages/Facebook";
+
 function App() {
 	return (
 		<>
@@ -39,6 +42,7 @@ function App() {
 					<Route path="/signup" element={<Signup />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/facebook" element={<Facebook />} />
 
 					{/* Protected routes - Only in production */}
 					{isProduction ? (
