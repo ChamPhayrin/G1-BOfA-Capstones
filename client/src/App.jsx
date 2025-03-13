@@ -19,6 +19,7 @@ import Login from "./pages/Login";
 import Facebook from "./pages/Facebook";
 import Youtube from "./pages/Youtube";
 import Gmail from "./pages/Gmail";
+import Zoom from "./pages/Zoom";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/facebook" element={<Facebook />} />
           <Route path="/youtube" element={<Youtube />} />
           <Route path="/gmail" element={<Gmail />} />
+          <Route path="/zoom" element={<Zoom />} />
         </Routes>
       </Router>
 
