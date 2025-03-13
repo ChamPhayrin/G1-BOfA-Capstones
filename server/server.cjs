@@ -17,7 +17,7 @@ app.use(logger);
 app.use(cookieParser()); // Parse cookies before other middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors(corsOptions)); // Enable CORS with options
-app.use(express.static(path.join(__dirname, "/public"))); // Serve static files
+
 
 // Routes
 app.use('/register', require('./routes/register.cjs')); // Use the register router

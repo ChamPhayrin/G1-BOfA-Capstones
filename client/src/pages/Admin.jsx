@@ -1,5 +1,11 @@
+import UserList from "../components/UserList"
+import LogoutButton from "../components/LogoutButton"
+
 export default function Admin() {
   return (
-    <h1>Admin Page</h1>
+    <main>
+      <UserList/>
+      <LogoutButton/>
+    </main>
   )
 }

@@ -1,11 +1,16 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthProvider";
+import React, { useState, useRef, useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 import axios from "../api/axios";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 
 const login_url = "/auth";
 
 export default function Login() {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
   const errRef = useRef();
@@ -13,7 +18,6 @@ export default function Login() {
   const [user, setUser] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     userRef.current.focus();
@@ -41,7 +45,7 @@ export default function Login() {
       setAuth({ user, pwd, roles, accessToken });
       setUser("");
       setPwd("");
-      setSuccess(true);
+      navigate(from, {replace:  true})
     } catch (error) {
       if (!error?.response) {
         setErrMsg("No Server Response");
@@ -57,15 +61,6 @@ export default function Login() {
   };
 
   return (
-    <>
-      {success ? (
-        <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-[rgba(0,0,0,0.4)]">
-          <h1 className="text-white text-2xl mb-4">You're logged in!</h1>
-          <p className="underline">
-            <a href="#">Go to Home</a>
-          </p>
-        </section>
-      ) : (
         <main>
           <section className="w-full max-w-[420px] min-h-[400px] flex flex-col justify-start p-4 bg-[rgba(0,0,0,0.4)]">
             <p
@@ -116,12 +111,10 @@ export default function Login() {
             <p className="text-white mt-4">
               Need an Account? <br />
               <span className="underline">
-                <a href="#">Sign up</a>
+                <Link to="/signup">Sign up</Link>
               </span>
             </p>
           </section>
         </main>
-      )}
-    </>
-  );
+  )
 }
