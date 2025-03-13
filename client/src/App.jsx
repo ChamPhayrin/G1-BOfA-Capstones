@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 // Import Article Page components
 import Facebook from "./pages/Facebook";
 import Youtube from "./pages/Youtube";
+import Gmail from "./pages/Gmail";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/facebook" element={<Facebook />} />
           <Route path="/youtube" element={<Youtube />} />
+          <Route path="/gmail" element={<Gmail />} />
         </Routes>
       </Router>
 
