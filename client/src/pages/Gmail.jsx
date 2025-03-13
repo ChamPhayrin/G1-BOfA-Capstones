@@ -1,6 +1,6 @@
 import TechArticle from "./TechArticle";
 
-export default function YouTube() {
+export default function Gmail() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const gmailData = {
     articleTitle: "Gmail",
