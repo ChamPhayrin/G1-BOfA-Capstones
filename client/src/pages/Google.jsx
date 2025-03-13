@@ -61,6 +61,8 @@ export default function Google() {
     ],
 
     videoUrl: "https://www.youtube.com/embed/UIxJ3aCb25k?si=kw8ed0LoVHUlRkXf",
+    finalThoughts:
+      "Google is like a friendly assistant, always ready to help. No waiting, no confusion—just type and search.Great for finding information, places, recipes, and even fun facts.Give it a try—you might be surprised at how easy it is!",
   };
 
   // Using spread operator to dynamically make all key:value pairs props in our component

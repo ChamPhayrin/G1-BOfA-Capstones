@@ -71,6 +71,8 @@ export default function YouTube() {
     ],
 
     videoUrl: "https://www.youtube.com/embed/CtRgwJaW2N4?si=kuBo5ZSKIKV6Eocj",
+    finalThoughts:
+      "Gmail is just like writing letters—but easier, faster, and more secure. No waiting, no stamps, no lost mail. See messages instantly from family & businesses. Super simple to use, even if you’re new to technology. Give it a try, and soon, you’ll be the one helping others with email!",
   };
 
   // Using spread operator to dynamically make all key:value pairs props in our component

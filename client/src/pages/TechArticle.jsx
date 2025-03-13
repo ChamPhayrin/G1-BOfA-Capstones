@@ -7,6 +7,7 @@ export default function TechArticle({
   whyUse,
   steps,
   videoUrl,
+  finalThoughts
 }) {
   return (
     <article className="text-lg">
@@ -88,10 +89,7 @@ export default function TechArticle({
       <section>
         <h2 className="text-center font-bold text-3xl pt-10">Final Thoughts</h2>
         <p>
-          Final Thoughts Facebook might seem tricky at first, but once you get
-          the hang of it, it's just like reading the newspaper—except your
-          family, friends, and favorite hobbies are all inside. Give it a try,
-          and soon enough, you’ll be the one showing others how it’s done!
+          {finalThoughts}
         </p>
       </section>
     </article>

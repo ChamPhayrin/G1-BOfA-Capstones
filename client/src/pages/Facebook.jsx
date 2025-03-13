@@ -70,6 +70,8 @@ export default function Facebook() {
       },
     ],
     videoUrl: "https://www.youtube.com/embed/xu8rh9Ref4Y?si=920-UcZz0JDkCM5",
+    finalThoughts:
+      "Facebook might seem tricky at first, but once you get the hang of it, it's just like reading the newspaper—except your family, friends, and favorite hobbies are all inside. Give it a try, and soon enough, you’ll be the one showing others how it’s done!",
   };
 
   // Using spread operator to dynamically make all key:value pairs props in our component
