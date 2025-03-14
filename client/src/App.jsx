@@ -14,6 +14,8 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+import Account from "./pages/Account";
 
 // Import Article Page components
 import Facebook from "./pages/Facebook";
@@ -29,6 +31,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/facebook" element={<Facebook />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </Router>
 
