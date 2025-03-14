@@ -49,6 +49,8 @@ function App() {
 					<Route path="/login" element={<Login />} />
 					<Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/facebook" element={<Facebook />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/youtube" element={<Youtube />} />
           <Route path="/gmail" element={<Gmail />} />
           <Route path="/zoom" element={<Zoom />} />
