@@ -4,42 +4,48 @@ import useRefreshToken from "../hooks/useRefreshToken";
 import useAuth from "../hooks/useAuth";
 
 const PersistLogin = () => {
-	const [isLoading, setIsLoading] = useState(true);
-	const refresh = useRefreshToken();
-	const { auth, persist } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const refresh = useRefreshToken();
+  const { auth, persist } = useAuth();
 
-	useEffect(() => {
-		let isMounted = true; // Prevent state updates if the component unmounts
+  useEffect(() => {
+    let isMounted = true; // Prevent state updates if the component unmounts
 
-		const verifyRefreshToken = async () => {
-			try {
-				await refresh();
-			} catch (error) {
-				console.error(error);
-			} finally {
-				isMounted && setIsLoading(false);
-			}
-		};
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (error) {
+        console.error(error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
 
-		if (!auth?.accessToken) {
-			verifyRefreshToken();
-		} else {
-			setIsLoading(false);
-		}
+    // If there's no access token and persistence is enabled, try refreshing
+    if (persist && !auth?.accessToken) {
+      verifyRefreshToken();
+    } else {
+      setIsLoading(false);
+    }
 
-		return () => {
-			isMounted = false;
-		}; // Cleanup function to prevent memory leaks
-	}, [auth, refresh]);
+    return () => {
+      isMounted = false;
+    }; // Cleanup function to prevent memory leaks
+  }, [auth, persist, refresh]);
 
-	useEffect(() => {
-		console.log(`isLoading: ${isLoading}`);
-		console.log(`accessToken: ${JSON.stringify(auth?.accessToken)}`);
-	}, [isLoading, auth]);
+  useEffect(() => {
+    console.log(`isLoading: ${isLoading}`);
+    console.log(`accessToken: ${JSON.stringify(auth?.accessToken)}`);
+  }, [isLoading, auth]);
 
-	return (
-		<>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
-	);
+  // Conditionally render the Outlet based on persist and loading state
+  if (isLoading) {
+    return <p>Loading...</p>; // Show loading until the refresh token process is complete
+  }
+
+  return <Outlet />; // Render the Outlet after loading is complete
 };
 
 export default PersistLogin;

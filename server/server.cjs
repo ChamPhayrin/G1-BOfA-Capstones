@@ -24,9 +24,11 @@ app.use('/register', require('./routes/register.cjs')); // Use the register rout
 app.use('/auth', require('./routes/auth.cjs'));
 app.use('/refresh', require('./routes/refresh.cjs'));
 app.use('/logout', require('./routes/logout.cjs'));
+app.use('/messages', require('./routes/api/messages.cjs'));
 app.use(verifyJWT);
-app.use('/employees', require('./routes/api/employees.cjs'));
 app.use('/users', require('./routes/api/users.cjs'));
+
+
 
 // 404 handler
 app.all("*", (req, res, next) => {
