@@ -28,12 +28,6 @@ const handleLogin = async (req, res) => {
 
     const foundUser = rows[0];
 
-    // Debugging: Log the password fields (only in development)
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Plain Text Password:', pwd);
-      console.log('Hashed Password:', foundUser.password_hash);
-    }
-
     // Compare the password
     const match = await bcrypt.compare(pwd, foundUser.password_hash);
     if (!match) {
@@ -72,9 +66,8 @@ const handleLogin = async (req, res) => {
     });
 
     // Send the access token in the response
-    res.json({ accessToken });
+    res.json({ role_code: foundUser.role_code, accessToken });
   } catch (error) {
-    console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
