@@ -55,41 +55,41 @@ function App() {
           <Route path="/google" element={<Google />} />
           <Route path="/amazon" element={<Amazon />} />
           <Route path="/googlemaps" element={<GoogleMaps />} />
-        </Routes>
-      </Router>
+	</Routes>
 
-					{/* Protected routes - Only in production */}
-					{isProduction ? (
-						<>
-							<Route element={<PersistLogin />}>
-								<Route element={<RequireAuth allowedRoles={[5150]} />}>
-									<Route path="/admin" element={<Admin />} />
-								</Route>
-
-								<Route element={<RequireAuth allowedRoles={[3450]} />}>
-									<Route path="/moderator" element={<Moderator />} />
-								</Route>
-
-								<Route element={<RequireAuth allowedRoles={[2001]} />}>
-									<Route path="/account" element={<Account />} />
-								</Route>
-							</Route>
-						</>
-					) : (
-						<>
-							<Route element={<PersistLogin />}>
-								{/* Direct access in development */}
+				{/* Protected routes - Only in production */}
+				{isProduction ? (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							<Route element={<RequireAuth allowedRoles={[5150]} />}>
 								<Route path="/admin" element={<Admin />} />
+							</Route>
+
+							<Route element={<RequireAuth allowedRoles={[3450]} />}>
 								<Route path="/moderator" element={<Moderator />} />
+							</Route>
+
+							<Route element={<RequireAuth allowedRoles={[2001]} />}>
 								<Route path="/account" element={<Account />} />
 							</Route>
-						</>
-					)}
+						</Route>
+					</Routes>
+				) : (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							{/* Direct access in development */}
+							<Route path="/admin" element={<Admin />} />
+							<Route path="/moderator" element={<Moderator />} />
+							<Route path="/account" element={<Account />} />
+						</Route>
+					</Routes>
+				)}
 
-					{/* 404 path */}
+				{/* 404 path */}
+				<Routes>
 					<Route path="*" element={<NotFound />} />
 				</Routes>
-			</Router>
+		</Router>
 
 			<Footer />
 		</>
