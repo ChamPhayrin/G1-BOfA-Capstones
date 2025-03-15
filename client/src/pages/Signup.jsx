@@ -1,5 +1,12 @@
-export default function SignUp() {
+import React from "react";
+import Register from "../components/Register";
+
+export default function Signup() {
   return (
-    <h1>Sign Up Page</h1>
-  )
+    <main>
+      <Register
+        register_url={"/register"}
+      />
+    </main>
+  );
 }

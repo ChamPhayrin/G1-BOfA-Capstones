@@ -1,6 +1,9 @@
 // Importing React Router Dom elements
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+//Importing RequireAuth component
+import RequireAuth from "./components/RequireAuth";
+
 // Importing app style sheet
 import "./App.css";
 
@@ -14,6 +17,15 @@ import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+import Unauthorized from "./pages/Unauthorized";
+import Moderator from "./pages/Moderator";
+import NotFound from "./pages/NotFound";
+import Account from "./pages/Account";
+import PersistLogin from "./components/PersistLogin";
+
+//Production env
+const isProduction = process.env.NODE_ENV === "production";
 
 // Import Articles Page component (Holds all our our Article pages for each technology)
 import Articles from "./pages/Articles";
@@ -28,29 +40,68 @@ import Amazon from "./pages/Amazon";
 import GoogleMaps from "./pages/GoogleMaps";
 
 function App() {
-  return (
-    <>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
+	return (
+		<>
+			<Router>
+				<Header />
+				<Routes>
+					{/* public pathing */}
+					<Route path="/" element={<Home />} />
+					<Route path="/contact" element={<Contact />} />
+					<Route path="/signup" element={<Signup />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/facebook" element={<Facebook />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/youtube" element={<Youtube />} />
           <Route path="/gmail" element={<Gmail />} />
           <Route path="/zoom" element={<Zoom />} />
           <Route path="/google" element={<Google />} />
           <Route path="/amazon" element={<Amazon />} />
+
           <Route path="/google-maps" element={<GoogleMaps />} />
           <Route path="/articles" element={<Articles />} />
         </Routes>
       </Router>
 
-      <Footer />
-    </>
-  );
+
+				{/* Protected routes - Only in production */}
+				{isProduction ? (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							<Route element={<RequireAuth allowedRoles={[5150]} />}>
+								<Route path="/admin" element={<Admin />} />
+							</Route>
+
+							<Route element={<RequireAuth allowedRoles={[3450]} />}>
+								<Route path="/moderator" element={<Moderator />} />
+							</Route>
+
+							<Route element={<RequireAuth allowedRoles={[2001]} />}>
+								<Route path="/account" element={<Account />} />
+							</Route>
+						</Route>
+					</Routes>
+				) : (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							{/* Direct access in development */}
+							<Route path="/admin" element={<Admin />} />
+							<Route path="/moderator" element={<Moderator />} />
+							<Route path="/account" element={<Account />} />
+						</Route>
+					</Routes>
+				)}
+
+				{/* 404 path */}
+				<Routes>
+					<Route path="*" element={<NotFound />} />
+				</Routes>
+		</Router>
+
+			<Footer />
+		</>
+	);
 }
 
 export default App;
