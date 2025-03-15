@@ -15,6 +15,9 @@ import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 
+// Import Articles Page component (Holds all our our Article pages for each technology)
+import Articles from "./pages/Articles";
+
 // Import Article Page components
 import Facebook from "./pages/Facebook";
 import Youtube from "./pages/Youtube";
@@ -40,7 +43,8 @@ function App() {
           <Route path="/zoom" element={<Zoom />} />
           <Route path="/google" element={<Google />} />
           <Route path="/amazon" element={<Amazon />} />
-          <Route path="/googlemaps" element={<GoogleMaps />} />
+          <Route path="/google-maps" element={<GoogleMaps />} />
+          <Route path="/articles" element={<Articles />} />
         </Routes>
       </Router>
 
