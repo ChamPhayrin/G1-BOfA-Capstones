@@ -27,6 +27,9 @@ import PersistLogin from "./components/PersistLogin";
 //Production env
 const isProduction = process.env.NODE_ENV === "production";
 
+// Import Articles Page component (Holds all our our Article pages for each technology)
+import Articles from "./pages/Articles";
+
 // Import Article Page components
 import Facebook from "./pages/Facebook";
 import Youtube from "./pages/Youtube";
@@ -55,8 +58,12 @@ function App() {
           <Route path="/zoom" element={<Zoom />} />
           <Route path="/google" element={<Google />} />
           <Route path="/amazon" element={<Amazon />} />
-          <Route path="/googlemaps" element={<GoogleMaps />} />
-	</Routes>
+
+          <Route path="/google-maps" element={<GoogleMaps />} />
+          <Route path="/articles" element={<Articles />} />
+        </Routes>
+      </Router>
+
 
 				{/* Protected routes - Only in production */}
 				{isProduction ? (
