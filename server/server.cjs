@@ -6,7 +6,7 @@ const app = express();
 const { logger } = require('./middleware/logEvents.cjs');
 const errorHandler = require("./middleware/errorHandler.cjs");
 const corsOptions = require("./configs/corsOption.cjs");
-const verifyJWT = require("./middleware/verifyJWT.cjs");
+const {verifyJWT} = require("./middleware/verifyJWT.cjs");
 const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Path to the .env file
@@ -17,29 +17,28 @@ app.use(logger);
 app.use(cookieParser()); // Parse cookies before other middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors(corsOptions)); // Enable CORS with options
-app.use(express.static(path.join(__dirname, "/public"))); // Serve static files
 
 
-app.use('/', require('./routes/root.cjs'));
-app.use('/register', require('./routes/register.cjs'));
+// Routes
+app.use('/register', require('./routes/register.cjs')); // Use the register router
 app.use('/auth', require('./routes/auth.cjs'));
 app.use('/refresh', require('./routes/refresh.cjs'));
 app.use('/logout', require('./routes/logout.cjs'));
-
-//use verifyJWT middleware after here
+app.use('/messages', require('./routes/api/messages.cjs'));
 app.use(verifyJWT);
-app.use('/employees', require('./routes/api/employees.cjs'));
 app.use('/users', require('./routes/api/users.cjs'));
 
 
 
-
+// 404 handler
 app.all("*", (req, res, next) => {
-  res.status(404)
-  next(new Error(`Page not found - ${req.originalUrl}`))
+  res.status(404);
+  next(new Error(`Page not found - ${req.originalUrl}`));
 });
+
+// Error handler
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

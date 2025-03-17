@@ -3,18 +3,36 @@ require("dotenv").config();
 
 const verifyJWT = (req, res, next) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
-  if (!authHeader?.startsWith('Bearer ')) return res.sendStatus(401);
-  const token = authHeader.split(' ')[1];
-  jwt.verify(
-      token,
-      process.env.ACCESS_TOKEN_SECRET,
-      (err, decoded) => {
-          if (err) return res.sendStatus(403); //invalid token
-          req.user = decoded.UserInfo.username;
-          req.roles = decoded.UserInfo.roles;
-          next();
-      }
-  );
-}
 
-module.exports = verifyJWT
+  // Check if the authorization header is present and starts with 'Bearer '
+  if (!authHeader?.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'Unauthorized: Missing or invalid token' });
+  }
+
+  // Extract the token from the authorization header
+  const token = authHeader.split(' ')[1];
+
+  // Verify the token
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET,
+    (err, decoded) => {
+      if (err) {
+        console.error('JWT verification error:', err);
+        return res.status(403).json({ message: 'Forbidden: Invalid or expired token' });
+      }
+
+      // Attach the decoded user information to the request object
+      req.user = decoded.UserInfo.username;
+      req.role_code = decoded.UserInfo.role_code; // Attach the user's role_code
+
+      // Debugging: Log the decoded payload
+      console.log('Decoded JWT Payload:', decoded);
+
+      // Proceed to the next middleware
+      next();
+    }
+  );
+};
+
+module.exports = { verifyJWT };

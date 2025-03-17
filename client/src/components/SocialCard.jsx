@@ -6,7 +6,7 @@ const SocialCard = ({ logo, title, text, buttonText, onClick }) => {
   return (
     <div className="flex items-center bg-white shadow-md rounded-lg p-5 w-full max-w-lg border-2 border-gray-300">
       {/* Left Side - Logo with a Circular Background */}
-      <div className="flex justify-center items-center bg-blue-500 text-white w-16 h-16 rounded-full text-3xl font-bold">
+      <div className="flex justify-center items-center text-white w-16 h-16 rounded-full text-3xl font-bold">
         {logo} {/* Displays the logo passed as a prop */}
       </div>
 

@@ -1,102 +1,118 @@
 import React from "react";
-import Welcome from "../components/Welcome";
-import SocialCard from "../components/SocialCard";
-import Article from "../components/Article";
+import Welcome from "../components/Welcome"; // Welcome section with image collage and intro message
+import SocialCard from "../components/SocialCard"; // Component for social media platform cards
+import ArticleSection from "../components/ArticleSection"; // Component for latest tech articles
 
+// Social media platform logos (Updated to real logos)
+const facebookLogo =
+  "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg";
+const gmailLogo =
+  "https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg";
+const youtubeLogo =
+  "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg";
+const googleLogo =
+  "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg";
+
+// Home Page Component
 const Home = () => {
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-5 bg-gray-50 w-full">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 w-full">
+      {/* Main Heading */}
+      <h2
+        className="text-4xl font-serif font-regular mt-12 text-gray-900 text-center pb-10 tracking-wide"
+        role="heading"
+        aria-level="1"
+      >
+        Bringing the Digital World Closer to You
+      </h2>
+
       {/* Hero Image */}
-      <div className="w-full max-w-6xl">
+      <div className="relative w-full mt-6">
         <img
           src="https://www.familyeducation.com/sites/default/files/2019-07/iStock-958689848.jpg"
-          alt="Elderly people using technology"
-          className="w-full h-72 object-cover rounded-lg shadow-lg"
+          alt="Elderly people using a tablet together"
+          className="w-full h-96 object-cover"
+          aria-hidden="false"
         />
       </div>
-
-      {/* Home Title */}
-      <h1 className="text-5xl font-bold mt-10">Home</h1>
 
       {/* Welcome Section */}
-      <div className="mt-6 w-3/4 max-w-4xl">
-        <Welcome text="Technology isn’t just for the young—it’s for everyone! Stay connected, explore new opportunities, and discover how easy and fun it can be to learn and engage online. Join us today and take the first step toward mastering the digital world!" />
-      </div>
+      <Welcome />
 
-      {/* Social Cards */}
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 w-3/4 max-w-4xl">
-        {/* Facebook */}
+      {/* Social Media Platforms Section */}
+      <h3
+        className="text-3xl font-serif font-regular mt-16 text-gray-800"
+        role="heading"
+        aria-level="2"
+      >
+        Essential Digital Platforms
+      </h3>
+
+      {/* Social Cards for different platforms */}
+      <div className="mt-6 w-3/4 max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
         <SocialCard
-          logo="f"
+          logo={
+            <img
+              src={facebookLogo}
+              alt="Facebook Logo"
+              className="w-16 h-16 object-contain"
+            />
+          }
           title="Facebook"
           text="Connect with family, discover new communities, and share moments that matter."
-          buttonText="Visit Facebook"
+          buttonText="Click Here"
           onClick={() => window.open("https://www.facebook.com", "_blank")}
+          aria-label="Visit Facebook"
         />
 
-        {/* Gmail */}
         <SocialCard
-          logo="📧"
+          logo={
+            <img
+              src={gmailLogo}
+              alt="Gmail Logo"
+              className="w-16 h-16 object-contain"
+            />
+          }
           title="Gmail"
           text="Stay in touch and manage your emails easily with Gmail."
-          buttonText="Check Inbox"
+          buttonText="Click Here"
           onClick={() => window.open("https://mail.google.com", "_blank")}
+          aria-label="Check your Gmail Inbox"
         />
 
-        {/* YouTube */}
         <SocialCard
-          logo="▶️"
+          logo={
+            <img
+              src={youtubeLogo}
+              alt="YouTube Logo"
+              className="w-16 h-16 object-contain"
+            />
+          }
           title="YouTube"
           text="Watch, learn, and explore millions of videos on YouTube."
-          buttonText="Watch Now"
+          buttonText="Click Here"
           onClick={() => window.open("https://www.youtube.com", "_blank")}
+          aria-label="Watch videos on YouTube"
         />
 
-        {/* Google */}
         <SocialCard
-          logo="🔍"
+          logo={
+            <img
+              src={googleLogo}
+              alt="Google Logo"
+              className="w-16 h-16 object-contain"
+            />
+          }
           title="Google"
           text="Search for anything, find answers, and explore the web."
-          buttonText="Search Now"
+          buttonText="Click Here"
           onClick={() => window.open("https://www.google.com", "_blank")}
+          aria-label="Search on Google"
         />
       </div>
 
-      {/* Articles Section */}
-      <h2 className="text-3xl font-bold mt-16">Latest Tech Articles</h2>
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8 w-3/4 max-w-4xl">
-        {/* Article 1: Online Safety */}
-        <Article
-          category="Online Safety"
-          title="5 Tips To Keep Seniors Safe Online"
-          description="Discover essential tips to protect yourself from online threats."
-          link="https://www.linkedin.com/pulse/5-tips-keep-seniors-safe-online-amica-senior-lifestyles-ox6oc"
-        />
-
-        {/* Article 2: Supporting Technology Use */}
-        <Article
-          category="Technology Support"
-          title="Supporting Older People to Use Technology"
-          description="Learn how to assist seniors in embracing modern technology safely."
-          link="https://www.linkedin.com/pulse/supporting-older-people-use-technology-michael-jeffrey-xyrhc"
-        />
-
-        {/* Article 3: Protecting Against Scams */}
-        <Article
-          category="Fraud Protection"
-          title="Protecting Seniors From Scams"
-          description="Understand common scams targeting seniors and how to avoid them."
-          link="https://www.linkedin.com/pulse/protecting-seniors-from-scams-eydle-aph2e"
-        />
-
-        {/* Article 4: Social Media Safety */}
-        <Article
-          category="Social Media Safety"
-          title="Review Online Safety Tips for Seniors"
-          description="Stay safe on social media platforms with these essential tips."
-          link="https://www.linkedin.com/pulse/stay-safe-online-2025-6-simple-cybersecurity-tips-kevin-richardson-xodmc/"
-        />
-      </div>
+      {/* Article Section Component */}
+      <ArticleSection />
     </div>
   );
 };

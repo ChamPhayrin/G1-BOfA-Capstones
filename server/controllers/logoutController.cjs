@@ -1,35 +1,47 @@
-const userDB = {
-  users: require("../../data/users.json"),
-  setUsers: function (data) {
-    this.users = data;
-  },
-};
-const fsPromises = require('fs').promises;
-const path = require('path');
+const connection = require("../configs/dbconfig.cjs");
 
 const handleLogout = async (req, res) => {
-
-  if (!req.cookies?.jwt) return res.sendStatus(204); // No content
-  const refreshToken = req.cookies.jwt;
-
-  // Is refreshToken in db?
-  const foundUser = userDB.users.find(person => person.refreshToken === refreshToken);
-  if (!foundUser) {
-    res.clearCookie('jwt', { httpOnly: true});
-    return res.sendStatus(204);
+  // Check if the JWT cookie exists
+  if (!req.cookies?.jwt) {
+    return res.sendStatus(204); // No content
   }
 
-  // Delete refreshToken in db
-  const otherUsers = userDB.users.filter(person => person.refreshToken !== foundUser.refreshToken);
-  const currentUser = { ...foundUser, refreshToken: '' };
-  userDB.setUsers([...otherUsers, currentUser]);
-  await fsPromises.writeFile(
-    path.join('/Users/ChamngaryPhayrin/Desktop/auth-tut/data/users.json'),
-    JSON.stringify(userDB.users)
-  );
+  const refreshToken = req.cookies.jwt;
 
-  res.clearCookie('jwt', { httpOnly: true});
-  res.sendStatus(204);
+  try {
+    // Find the user with the given refreshToken in the database
+    const query = 'SELECT * FROM users WHERE refreshToken = ?';
+    const [rows] = await connection.execute(query, [refreshToken]);
+
+    // If no user is found, clear the cookie and return
+    if (rows.length === 0) {
+      res.clearCookie('jwt', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Ensure secure cookie in production
+        sameSite: 'Strict', // Prevent CSRF attacks
+      });
+      return res.sendStatus(204);
+    }
+
+    const foundUser = rows[0];
+
+    // Clear the refreshToken in the database
+    const updateQuery = 'UPDATE users SET refreshToken = NULL WHERE id = ?';
+    await connection.execute(updateQuery, [foundUser.id]);
+
+    // Clear the JWT cookie
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Ensure secure cookie in production
+      sameSite: 'Strict', // Prevent CSRF attacks
+    });
+
+    // Send a success response
+    res.sendStatus(204);
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 module.exports = { handleLogout };
