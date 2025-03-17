@@ -6,7 +6,7 @@ import useAuth from "../hooks/useAuth";
 const LOGIN_URL = "/auth";
 
 export default function Login() {
-  const { setAuth } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth(); // Add persist and setPersist
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/"; // Redirect to the intended page after login
@@ -18,6 +18,7 @@ export default function Login() {
   const [errMsg, setErrMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [trustAccount, setTrustAccount] = useState(persist); // Add trustAccount state
 
   // Focus on the username input when the component mounts
   useEffect(() => {
@@ -28,6 +29,12 @@ export default function Login() {
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd]);
+
+  // Handle trust account checkbox change
+  const handleTrustAccountChange = () => {
+    setTrustAccount((prev) => !prev);
+    setPersist((prev) => !prev); // Update persist state in AuthContext
+  };
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -152,7 +159,7 @@ export default function Login() {
                   onChange={(e) => setPwd(e.target.value)}
                   value={pwd}
                   required
-                  className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your password"
                 />
                 <button
@@ -202,6 +209,23 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Trust Account Checkbox */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="trustAccount"
+                checked={trustAccount}
+                onChange={handleTrustAccountChange}
+                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              />
+              <label
+                htmlFor="trustAccount"
+                className="ml-2 text-sm text-gray-700"
+              >
+                Trust this device
+              </label>
+            </div>
+
             <button
               type="submit"
               disabled={isLoading}
@@ -212,11 +236,14 @@ export default function Login() {
           </form>
 
           <div className="text-center mt-6">
+            <p>
+              Need an Account? 
+            </p>
             <Link
-              to="/forgot-password"
+              to="/signup"
               className="text-sm text-indigo-600 hover:text-indigo-700"
             >
-              Forgot Password?
+              Sign up
             </Link>
           </div>
         </div>

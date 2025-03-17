@@ -1,18 +1,32 @@
 import { useState, useEffect } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth"; // Use the custom useAuth hook
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { auth } = useAuth(); // Get auth state from context
   const location = useLocation();
+  const navigate = useNavigate();
 
+  // Close the mobile menu when the route changes
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
   // Check if the user is logged in based on the presence of auth data
-  const isLoggedIn = !!auth?.accessToken;
+  const isLoggedIn = !!auth?.user_id;
+
+  // Check if the user is an admin (role code 5150)
+  const isAdmin =  auth?.roles === 5150;
+
+  // Handle account navigation
+  const handleAccountClick = () => {
+    if (isAdmin) {
+      navigate("/admin"); // Redirect to admin page if the user is an admin
+    } else {
+      navigate("/account"); // Redirect to regular account page if not an admin
+    }
+  };
 
   return (
     <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
@@ -38,7 +52,12 @@ export default function Header() {
           {isLoggedIn ? (
             <>
               <NavLink to="/contact" className="hover:text-blue-400 transition">Contact</NavLink>
-              <NavLink to="/account" className="hover:text-blue-400 transition">Account</NavLink>
+              <button
+                onClick={handleAccountClick}
+                className="hover:text-blue-400 transition"
+              >
+                {isAdmin ? "Admin" : "Account"}
+              </button>
             </>
           ) : (
             <NavLink to="/login" className="hover:text-blue-400 transition">Login</NavLink>
@@ -83,9 +102,13 @@ export default function Header() {
                       </NavLink>
                     </li>
                     <li>
-                      <NavLink to="/account" className="flex items-center hover:text-blue-400">
-                        <img src="/account.svg" alt="Account" className="w-6 h-6 mr-3" /> Account
-                      </NavLink>
+                      <button
+                        onClick={handleAccountClick}
+                        className="flex items-center hover:text-blue-400 w-full text-left"
+                      >
+                        <img src="/account.svg" alt="Account" className="w-6 h-6 mr-3" />
+                        {isAdmin ? "Admin" : "Account"}
+                      </button>
                     </li>
                   </>
                 ) : (
