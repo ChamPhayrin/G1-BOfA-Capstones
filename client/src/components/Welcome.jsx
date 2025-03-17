@@ -2,9 +2,20 @@ import React from "react";
 
 const Welcome = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center mt-12 w-4/5 max-w-6xl gap-8">
+    <div
+      className="flex flex-col md:flex-row items-center justify-center mt-12 w-4/5 max-w-6xl gap-8"
+      role="region"
+      aria-labelledby="welcome-heading"
+    >
       {/* Left Section: Image Collage */}
-      <div className="grid grid-cols-2 gap-3 w-full md:w-1/2">
+      <div
+        className="grid grid-cols-2 gap-3 w-full md:w-1/2"
+        role="group"
+        aria-labelledby="welcome-images"
+      >
+        <p id="welcome-images" className="sr-only">
+          A collage of images showing elderly individuals using technology.
+        </p>
         <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT1s8PXc2zr6VyMSizUtbFrZjfEZ33WYFH9g&s"
           alt="Elderly woman and child using a tablet"
@@ -30,13 +41,28 @@ const Welcome = () => {
       {/* Right Section: Text Content */}
       <div className="w-full md:w-1/2 flex flex-col items-center text-center">
         {/* Subtitle Positioned Above the Welcome Box */}
-        <p className="text-3xl font-serif font-regular mt-16 text-gray-800 md:self-start md:ml-4">
+        <p
+          className="text-3xl font-serif font-regular mt-16 text-gray-800 md:self-start md:ml-4"
+          role="heading"
+          aria-level="2"
+        >
           Explore, Connect, and Learn
         </p>
 
         {/* Welcome Box */}
-        <div className="bg-white shadow-lg rounded-lg p-6 text-gray-700 w-full">
-          <h3 className="text-3xl font-bold text-gray-900">Welcome!</h3>
+        <div
+          className="bg-white shadow-lg rounded-lg p-6 text-gray-700 w-full"
+          role="region"
+          aria-labelledby="welcome-heading"
+        >
+          <h3
+            id="welcome-heading"
+            className="text-3xl font-bold text-gray-900"
+            role="heading"
+            aria-level="3"
+          >
+            Welcome!
+          </h3>
           <p className="mt-4 leading-relaxed text-lg">
             Technology isn't just for the young—it's for everyone! Stay
             connected, explore new opportunities, and discover how easy and fun
