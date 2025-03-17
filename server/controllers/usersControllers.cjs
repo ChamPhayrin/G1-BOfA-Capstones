@@ -16,15 +16,20 @@ const getAllUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { id, username } = req.body;
+    const { id } = req.params; // Use req.params.id to get the user ID from the URL
+    const { username } = req.body;
 
-    // Validate input
-    if (!id || !username) {
-      return res.status(400).json({ message: "ID and username are required." });
+    if (!username) {
+      return res.status(400).json({ message: "Username is required." });
     }
 
-    const updateUserQ = 'UPDATE users SET username = ? WHERE id = ?';
-    await connection.execute(updateUserQ, [username, id]);
+    // Update the user in the database
+    const updateUserQuery = 'UPDATE users SET username = ? WHERE id = ?';
+    const [result] = await connection.execute(updateUserQuery, [username, id]);
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
@@ -35,12 +40,12 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // Use req.params.id here instead of req.body.id
 
     // Validate input
     if (!id) {
       return res.status(400).json({ message: "ID is required." });
-    } 
+    }
 
     const getUserQ = 'SELECT * FROM users WHERE id = ?';
     const [user] = await connection.execute(getUserQ, [id]);

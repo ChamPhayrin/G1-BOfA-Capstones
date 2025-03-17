@@ -55,6 +55,7 @@ const handleRefreshToken = async (req, res) => {
       {
         UserInfo: {
           username: foundUser.username,
+          userId: foundUser.id,
           role_code: roleCode,
         },
       },

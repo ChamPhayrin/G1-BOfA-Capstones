@@ -1,121 +1,100 @@
-//  Imports State for our hamburger menu
 import { useState, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
+import useAuth from "../hooks/useAuth"; // Use the custom useAuth hook
 
-// Imports NavLink which allows us to switch pages in React without reloading
-// Imports useLocation to track the current route and trigger the sidenav to close once the user navigates to a different page, thus changing the route
-// useLoco = returns obj respresenting current URL and updates auto when changes
-import { NavLink, Link, useLocation } from "react-router-dom";
-
-// Semantic Header component which holds our Navbar
-export function Header() {
-  // State that toggles opening and closing hamburger menu
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // location = obj that holds "pathname" property we want
+  const { auth } = useAuth(); // Get auth state from context
   const location = useLocation();
-  // location.pathname = current route (Home = /, login = /login)
 
-  // useEffect will run everytime location.pathway changes, essentially meaning once the sidenav is open and a new Link is clicked, the sidenav with auto close since state is set back to false
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  // Check if the user is logged in based on the presence of auth data
+  const isLoggedIn = !!auth?.accessToken;
+
   return (
-    <header className="bg-black text-white sticky top-0 z-50">
-      <nav className="p-5 flex justify-between items-center">
-        {/* Button that wraps our svg ham-menu icon on mobile */}
+    <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
+      <nav className="p-5 flex justify-between items-center max-w-7xl mx-auto" aria-label="Main Navigation">
+        {/* Hamburger Menu Button */}
         <button
-          // When button is clicked, state changes to true, displaying sidenav
           onClick={() => setMenuOpen(true)}
-          // Hides on medium screens and larger.
           className="lg:hidden focus:outline-none"
+          aria-label="Open menu"
         >
-          <img src="hamburger-menu.svg" alt="" />
+          <img src="/hamburger-menu.svg" alt="Menu" className="w-8 h-8" />
         </button>
 
-        {/* When I surround this with <a> or <Link>, it doesn't work */}
-       <img src="logo.png" alt="" className="w-1/5 h-auto" />       
+        {/* Logo */}
+        <NavLink to="/" className="flex items-center" aria-label="Home">
+          <img src="/logo.png" alt="Website Logo" className="w-28 h-auto" />
+        </NavLink>
 
-        {/* Empty Placeholder for Right Side of Navbar (Mobile/Tablet). We use this so when we use space-between on our nav's flexbox, our logo stays centered */}
-        <div className="w-7 h-7"></div>
-
-        {/* NAVIGATION MENUS */}
-
-        {/* Desktop Navigation (HIDDEN ON MOBILE. only seen on TABLET AND DEKSTOP) */}
-        {/* hidden hides on all screen sizes, but md:flex changes display for medium screens and up, showing our links */}
-        <div className="hidden lg:flex space-x-4 ml-auto">
-          <NavLink to="/" className="hover:text-blue-400">
-            Home
-          </NavLink>
-          <NavLink to="/contact" className="hover:text-blue-400">
-            Contact
-          </NavLink>
-          <NavLink to="/signup" className="hover:text-blue-400">
-            Sign Up
-          </NavLink>
-          <NavLink to="/login" className="hover:text-blue-400">
-            Login
-          </NavLink>
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex space-x-6 ml-auto text-lg">
+          <NavLink to="/" className="hover:text-blue-400 transition">Home</NavLink>
+          <NavLink to="/articles" className="hover:text-blue-400 transition">Articles</NavLink>
+          {isLoggedIn ? (
+            <>
+              <NavLink to="/contact" className="hover:text-blue-400 transition">Contact</NavLink>
+              <NavLink to="/account" className="hover:text-blue-400 transition">Account</NavLink>
+            </>
+          ) : (
+            <NavLink to="/login" className="hover:text-blue-400 transition">Login</NavLink>
+          )}
         </div>
 
-        {/* Mobile sidenav, DEPENDANT ON "menuOpen" STATE (MOBILE ONLY) */}
-        {/* When menuOpen is true, return our sidenav menu */}
+        {/* Mobile Navigation Drawer */}
         {menuOpen && (
-          // Overlay background covers entire screen w/ slight blur
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-[1px] z-40"
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
             onClick={() => setMenuOpen(false)}
+            aria-hidden="true"
           >
-            {/* Nav list container on left side */}
             <div
-              className="bg-black w-64 h-full p-6 "
+              className="bg-gray-900 w-64 h-full p-6 shadow-lg"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-white mb-4"
+                className="text-white mb-4 flex items-center"
+                aria-label="Close menu"
               >
-                <img src="close.svg" alt="" />
+                <img src="/close.svg" alt="Close menu" className="w-6 h-6" />
               </button>
 
-              <ul>
-                <li className="list-none text-lg">
-                  <NavLink to="/" className="hover:text-blue-400 flex mb-4">
-                    <img src="home.svg" alt="Home icon" className="mr-2" />
-                    Home
+              <ul className="space-y-4 text-lg">
+                <li>
+                  <NavLink to="/" className="flex items-center hover:text-blue-400">
+                    <img src="/home.svg" alt="Home" className="w-6 h-6 mr-3" /> Home
                   </NavLink>
                 </li>
-                <li className="list-none text-lg">
-                  <NavLink
-                    to="/contact"
-                    className="hover:text-blue-400 flex mb-4"
-                  >
-                    <img
-                      src="contact.svg"
-                      alt="Contact icon"
-                      className="mr-2"
-                    />
-                    Contact
+                <li>
+                  <NavLink to="/articles" className="flex items-center hover:text-blue-400">
+                    <img src="/articles.svg" alt="Articles" className="w-6 h-6 mr-3" /> Articles
                   </NavLink>
                 </li>
-                <li className="list-none text-lg">
-                  <NavLink
-                    to="/signup"
-                    className="hover:text-blue-400 flex mb-4"
-                  >
-                    <img src="signup.svg" alt="Sign Up icon" className="mr-2" />
-                    Sign Up
-                  </NavLink>
-                </li>
-                <li className="list-none text-lg">
-                  <NavLink
-                    to="/login"
-                    className="hover:text-blue-400 flex mb-4"
-                  >
-                    <img src="login.svg" alt="Login icon" className="mr-2" />
-                    Login
-                  </NavLink>
-                </li>
+                {isLoggedIn ? (
+                  <>
+                    <li>
+                      <NavLink to="/contact" className="flex items-center hover:text-blue-400">
+                        <img src="/contact.svg" alt="Contact" className="w-6 h-6 mr-3" /> Contact
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink to="/account" className="flex items-center hover:text-blue-400">
+                        <img src="/account.svg" alt="Account" className="w-6 h-6 mr-3" /> Account
+                      </NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <li>
+                    <NavLink to="/login" className="flex items-center hover:text-blue-400">
+                      <img src="/login.svg" alt="Login" className="w-6 h-6 mr-3" /> Login
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

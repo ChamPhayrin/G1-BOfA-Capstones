@@ -39,6 +39,7 @@ const handleLogin = async (req, res) => {
       {
         UserInfo: {
           username: foundUser.username,
+          userId: foundUser.id,
           role_code: foundUser.role_code, // Include role_code in the token payload
         },
       },
