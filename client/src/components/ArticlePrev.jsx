@@ -24,9 +24,7 @@ export default function ArticlePrev({ technology, desc, logo }) {
       </div>
       <div className="flex flex-col w-3/4">
         {/* Article tehcnology/title */}
-        <h3 className="mb-1 font-bold md:text-2xl lg:text-4xl">
-          {technology}
-        </h3>
+        <h3 className="mb-1 font-bold md:text-2xl lg:text-4xl">{technology}</h3>
         {/* Description of article */}
         <p className="text-xs md:text-base mb-1 lg:text-xl text-gray-700">
           {desc}
