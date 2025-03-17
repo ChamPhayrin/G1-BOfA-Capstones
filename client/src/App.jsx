@@ -1,12 +1,13 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// Importing components
+// Import Components
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
-import Header from "./components/Header";
+import { Header } from "./components/Header";
 import Footer from "./components/Footer";
 
-// Importing page components
+// Import Pages
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signup from "./pages/Signup";
@@ -27,14 +28,13 @@ import Google from "./pages/Google";
 import Amazon from "./pages/Amazon";
 import GoogleMaps from "./pages/GoogleMaps";
 
-// Production env
+// Check if in Production
 const isProduction = process.env.NODE_ENV === "production";
 
 function App() {
   return (
     <Router>
       <Header />
-
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
@@ -43,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/facebook" element={<Facebook />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/youtube" element={<Youtube />} />
         <Route path="/gmail" element={<Gmail />} />
         <Route path="/zoom" element={<Zoom />} />
@@ -51,33 +52,35 @@ function App() {
         <Route path="/google-maps" element={<GoogleMaps />} />
         <Route path="/articles" element={<Articles />} />
 
-        {/* Protected Routes */}
-        {isProduction ? (
-          <>
-            <Route element={<PersistLogin />}>
-              <Route element={<RequireAuth allowedRoles={[5150]} />}>
-                <Route path="/admin" element={<Admin />} />
-              </Route>
+				{/* Protected routes - Only in production */}
+				{isProduction ? (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							<Route element={<RequireAuth allowedRoles={[5150]} />}>
+								<Route path="/admin" element={<Admin />} />
+							</Route>
 
-              <Route element={<RequireAuth allowedRoles={[3450]} />}>
-                <Route path="/moderator" element={<Moderator />} />
-              </Route>
+							<Route element={<RequireAuth allowedRoles={[3450]} />}>
+								<Route path="/moderator" element={<Moderator />} />
+							</Route>
 
-              <Route element={<RequireAuth allowedRoles={[2001]} />}>
-                <Route path="/account" element={<Account />} />
-              </Route>
-            </Route>
-          </>
-        ) : (
-          <Route element={<PersistLogin />}>
-            {/* Direct access in development */}
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/moderator" element={<Moderator />} />
-            <Route path="/account" element={<Account />} />
-          </Route>
-        )}
+							<Route element={<RequireAuth allowedRoles={[2001]} />}>
+								<Route path="/account" element={<Account />} />
+							</Route>
+						</Route>
+					</Routes>
+				) : (
+					<Routes>
+						<Route element={<PersistLogin />}>
+							{/* Direct access in development */}
+							<Route path="/admin" element={<Admin />} />
+							<Route path="/moderator" element={<Moderator />} />
+							<Route path="/account" element={<Account />} />
+						</Route>
+					</Routes>
+				)}
 
-        {/* 404 Path */}
+        {/* 404 Page */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
