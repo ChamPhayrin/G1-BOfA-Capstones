@@ -28,9 +28,6 @@ import Google from "./pages/Google";
 import Amazon from "./pages/Amazon";
 import GoogleMaps from "./pages/GoogleMaps";
 
-// Check if in Production
-const isProduction = process.env.NODE_ENV === "production";
-
 function App() {
   return (
     <Router>
@@ -43,7 +40,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/facebook" element={<Facebook />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/youtube" element={<Youtube />} />
         <Route path="/gmail" element={<Gmail />} />
         <Route path="/zoom" element={<Zoom />} />
@@ -53,25 +49,17 @@ function App() {
         <Route path="/articles" element={<Articles />} />
 
         {/* Protected Routes */}
-        {isProduction ? (
-          <Route element={<PersistLogin />}>
-            <Route element={<RequireAuth allowedRoles={[5150]} />}>
-              <Route path="/admin" element={<Admin />} />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={[3450]} />}>
-              <Route path="/moderator" element={<Moderator />} />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={[2001]} />}>
-              <Route path="/account" element={<Account />} />
-            </Route>
-          </Route>
-        ) : (
-          <Route element={<PersistLogin />}>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[5150]} />}>
             <Route path="/admin" element={<Admin />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[3450]} />}>
             <Route path="/moderator" element={<Moderator />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[2001]} />}>
             <Route path="/account" element={<Account />} />
           </Route>
-        )}
+        </Route>
 
         {/* 404 Page */}
         <Route path="*" element={<NotFound />} />

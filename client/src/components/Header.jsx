@@ -1,6 +1,16 @@
 import { useState, useEffect } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth"; // Use the custom useAuth hook
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBars,
+  faTimes,
+  faHome,
+  faNewspaper,
+  faEnvelope,
+  faUser,
+  faSignInAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -17,7 +27,7 @@ export default function Header() {
   const isLoggedIn = !!auth?.user_id;
 
   // Check if the user is an admin (role code 5150)
-  const isAdmin =  auth?.roles === 5150;
+  const isAdmin = auth?.roles === 5150;
 
   // Handle account navigation
   const handleAccountClick = () => {
@@ -37,7 +47,7 @@ export default function Header() {
           className="lg:hidden focus:outline-none"
           aria-label="Open menu"
         >
-          <img src="/hamburger-menu.svg" alt="Menu" className="w-8 h-8" />
+          <FontAwesomeIcon icon={faBars} className="w-8 h-8 text-white" />
         </button>
 
         {/* Logo */}
@@ -47,20 +57,26 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex space-x-6 ml-auto text-lg">
-          <NavLink to="/" className="hover:text-blue-400 transition">Home</NavLink>
-          <NavLink to="/articles" className="hover:text-blue-400 transition">Articles</NavLink>
+          <NavLink to="/" className="hover:text-blue-400 transition">
+            Home
+          </NavLink>
+          <NavLink to="/articles" className="hover:text-blue-400 transition">
+            Articles
+          </NavLink>
+          <NavLink to="/contact" className="hover:text-blue-400 transition">
+            Contact
+          </NavLink>
           {isLoggedIn ? (
-            <>
-              <NavLink to="/contact" className="hover:text-blue-400 transition">Contact</NavLink>
-              <button
-                onClick={handleAccountClick}
-                className="hover:text-blue-400 transition"
-              >
-                {isAdmin ? "Admin" : "Account"}
-              </button>
-            </>
+            <button
+              onClick={handleAccountClick}
+              className="hover:text-blue-400 transition"
+            >
+              {isAdmin ? "Admin" : "Account"}
+            </button>
           ) : (
-            <NavLink to="/login" className="hover:text-blue-400 transition">Login</NavLink>
+            <NavLink to="/login" className="hover:text-blue-400 transition">
+              Login
+            </NavLink>
           )}
         </div>
 
@@ -75,46 +91,46 @@ export default function Header() {
               className="bg-gray-900 w-64 h-full p-6 shadow-lg"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close Button */}
               <button
                 onClick={() => setMenuOpen(false)}
                 className="text-white mb-4 flex items-center"
                 aria-label="Close menu"
               >
-                <img src="/close.svg" alt="Close menu" className="w-6 h-6" />
+                <FontAwesomeIcon icon={faTimes} className="w-6 h-6" />
               </button>
 
+              {/* Mobile Navigation Links */}
               <ul className="space-y-4 text-lg">
                 <li>
                   <NavLink to="/" className="flex items-center hover:text-blue-400">
-                    <img src="/home.svg" alt="Home" className="w-6 h-6 mr-3" /> Home
+                    <FontAwesomeIcon icon={faHome} className="w-6 h-6 mr-3" /> Home
                   </NavLink>
                 </li>
                 <li>
                   <NavLink to="/articles" className="flex items-center hover:text-blue-400">
-                    <img src="/articles.svg" alt="Articles" className="w-6 h-6 mr-3" /> Articles
+                    <FontAwesomeIcon icon={faNewspaper} className="w-6 h-6 mr-3" /> Articles
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contact" className="flex items-center hover:text-blue-400">
+                    <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 mr-3" /> Contact
                   </NavLink>
                 </li>
                 {isLoggedIn ? (
-                  <>
-                    <li>
-                      <NavLink to="/contact" className="flex items-center hover:text-blue-400">
-                        <img src="/contact.svg" alt="Contact" className="w-6 h-6 mr-3" /> Contact
-                      </NavLink>
-                    </li>
-                    <li>
-                      <button
-                        onClick={handleAccountClick}
-                        className="flex items-center hover:text-blue-400 w-full text-left"
-                      >
-                        <img src="/account.svg" alt="Account" className="w-6 h-6 mr-3" />
-                        {isAdmin ? "Admin" : "Account"}
-                      </button>
-                    </li>
-                  </>
+                  <li>
+                    <button
+                      onClick={handleAccountClick}
+                      className="flex items-center hover:text-blue-400 w-full text-left"
+                    >
+                      <FontAwesomeIcon icon={faUser} className="w-6 h-6 mr-3" />
+                      {isAdmin ? "Admin" : "Account"}
+                    </button>
+                  </li>
                 ) : (
                   <li>
                     <NavLink to="/login" className="flex items-center hover:text-blue-400">
-                      <img src="/login.svg" alt="Login" className="w-6 h-6 mr-3" /> Login
+                      <FontAwesomeIcon icon={faSignInAlt} className="w-6 h-6 mr-3" /> Login
                     </NavLink>
                   </li>
                 )}
