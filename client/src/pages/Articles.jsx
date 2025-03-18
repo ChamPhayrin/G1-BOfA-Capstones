@@ -43,9 +43,17 @@ export default function Articles() {
   ];
 
   return (
-    <main className="">
-      <h1 className="text-center text-4xl font-bold mt-6 mb-3">Tech Articles</h1>
-      <h2 className="text-center text-2xl mb-8 ">
+    <main className="p-4">
+      <h1
+        className="text-center text-4xl font-bold mt-6 mb-3"
+        aria-label="Technology Articles"
+      >
+        Tech Articles
+      </h1>
+      <h2
+        className="text-center text-2xl mb-8"
+        aria-label="Explore our guides on essential technology"
+      >
         Read our articles to learn how to use fundamental technologies which are
         essential in our modern world!
       </h2>

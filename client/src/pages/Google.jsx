@@ -4,6 +4,7 @@ export default function Google() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const googleData = {
     articleTitle: "Google",
+    logo: "google-logo.png",
     definition:
       "Think of Google like a super-smart librarian who can find answers to anything you ask—instantly.\n\n" +
       "Ever wondered what time your favorite TV show comes on? Google can tell you.\n" +

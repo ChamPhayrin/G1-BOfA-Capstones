@@ -4,6 +4,7 @@ export default function Amazon() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const amazonData = {
     articleTitle: "Amazon",
+    logo: "amazon-logo.png",
     definition:
       "Amazon is like a giant shopping mall, but instead of walking from store to store, you can shop from the comfort of your home.\n\n" +
       "Need groceries, clothes, books, or electronics? Amazon has it all.\n" +

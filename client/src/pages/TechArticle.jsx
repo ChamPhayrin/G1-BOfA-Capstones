@@ -3,6 +3,7 @@
 // Props are in Facebook component, spread out from facebookData obj.
 export default function TechArticle({
   articleTitle,
+  logo,
   definition,
   whyUse,
   steps,
@@ -10,24 +11,34 @@ export default function TechArticle({
   finalThoughts,
 }) {
   return (
-    <article className="text-lg">
+    <article className="text-lg p-4 text-center md:pl-14 md:pr-14 lg:pl-20 lg:pr-20">
       {/* Article Header, Tech Heading */}
-      <h1 className="text-center font-bold text-4xl pt-5">{articleTitle}</h1>
+      <h1 className="text-center font-bold text-4xl pt-5 lg:text-6xl">
+        {articleTitle}
+      </h1>
+      {/* Logo centered in page in <div> */}
+      <div className="flex justify-center">
+        <img
+          src={logo}
+          alt={articleTitle}
+          className="w-24 h-24 md:w-32 md:h-32 lg:w-38 lg:h-38"
+        />
+      </div>
       {/* Definition Section */}
-      <section>
-        <h2 className="text-center font-bold text-3xl pt-10">
+      <section className="mb-10">
+        <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
           What Is {articleTitle}?
         </h2>
-        <p>{definition}</p>
+        <p className="lg:text-2xl">{definition}</p>
       </section>
       {/* Why Use It Section */}
-      <section>
-        <h2 className="text-center font-bold text-3xl pt-10">
+      <section className="mb-10">
+        <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
           Why You'd Use It
         </h2>
-        <p>Here’s why you might actually love {articleTitle}:</p>
+        <p className="lg:text-3xl">Here’s why you might actually love {articleTitle}:</p>
         {/* Mapping over whyUse array to make a <li> for each reason */}
-        <ul className="space-y-5">
+        <ul className="space-y-5 text-left lg:text-2xl">
           {/* reason is the content for each reason. index is built into map, used as key for each list item */}
           {whyUse.map((reason, index) => (
             <li key={index}>{reason}</li>
@@ -36,11 +47,11 @@ export default function TechArticle({
       </section>
 
       {/* Step by Step Instructions Section */}
-      <section>
-        <h2 className="text-center font-bold text-3xl pt-10">
+      <section className="mb-10">
+        <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
           How To Get Started With {articleTitle}
         </h2>
-        <p className="mb-4">
+        <p className="mb-4 lg:text-2xl">
           Here's step by step instructions on how to access and use{" "}
           {articleTitle}. Follow the listed instructions from top to bottom, or
           find specifically what you're looking for:
@@ -52,10 +63,12 @@ export default function TechArticle({
         {steps.map((step, index) => (
           <div key={index} className="mb-8">
             {/* Step Title */}
-            <h3 className="text-lg font-semibold pt-4">{step.title}</h3>
+            <h3 className="text-lg font-semibold pt-4 lg:text-3xl">
+              {step.title}
+            </h3>
 
             {/* Mapping Over Instructions */}
-            <ol className="space-y-4">
+            <ol className="space-y-4 text-left lg:text-2xl">
               {/* For each step, we'll map over the instructions array to list each list item */}
               {step.instructions.map((instruction, i) => (
                 <li key={i}>{instruction}</li>
@@ -63,15 +76,17 @@ export default function TechArticle({
             </ol>
 
             {/* Conditionally render tip for step, if applicable */}
-            {step.tip && <p>📻 Tip: {step.tip}</p>}
+            {step.tip && <p className="text-left mt-6 lg:text-2xl bg-amber-50">📻 Tip: {step.tip}</p>}
           </div>
         ))}
       </section>
 
       {/* Embedded Video Section */}
-      <section>
-        <h2 className="text-center font-bold text-3xl pt-10">Need Help?</h2>
-        <p>
+      <section className="mb-10">
+        <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
+          Need Help?
+        </h2>
+        <p className="lg:text-2xl">
           Sometimes, seeing it in action is easier. Watch this step-by-step
           video tutorial:
         </p>
@@ -86,9 +101,11 @@ export default function TechArticle({
       </section>
 
       {/* Final Thoughts Section */}
-      <section>
-        <h2 className="text-center font-bold text-3xl pt-10">Final Thoughts</h2>
-        <p>{finalThoughts}</p>
+      <section className="mb-10">
+        <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
+          Final Thoughts
+        </h2>
+        <p className="lg:text-2xl">{finalThoughts}</p>
       </section>
     </article>
   );
