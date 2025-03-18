@@ -6,7 +6,7 @@ const app = express();
 const { logger } = require('./middleware/logEvents.cjs');
 const errorHandler = require("./middleware/errorHandler.cjs");
 const corsOptions = require("./configs/corsOption.cjs");
-const {verifyJWT} = require("./middleware/verifyJWT.cjs");
+const { verifyJWT } = require("./middleware/verifyJWT.cjs");
 const cookieParser = require("cookie-parser");
 
 dotenv.config({ path: path.resolve(__dirname, "../.env") }); // Path to the .env file
@@ -18,17 +18,18 @@ app.use(cookieParser()); // Parse cookies before other middleware
 app.use(express.json()); // Parse JSON request bodies
 app.use(cors(corsOptions)); // Enable CORS with options
 
-
 // Routes
 app.use('/register', require('./routes/register.cjs')); // Use the register router
 app.use('/auth', require('./routes/auth.cjs'));
 app.use('/refresh', require('./routes/refresh.cjs'));
 app.use('/logout', require('./routes/logout.cjs'));
-app.use('/messages', require('./routes/api/messages.cjs'));
+
+// Middleware to verify JWT for protected routes
 app.use(verifyJWT);
+
+// Protected routes (authentication required)
 app.use('/users', require('./routes/api/users.cjs'));
-
-
+app.use('/messages', require('./routes/api/messages.cjs'));
 
 // 404 handler
 app.all("*", (req, res, next) => {
