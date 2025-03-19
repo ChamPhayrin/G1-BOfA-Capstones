@@ -4,6 +4,7 @@ export default function Gmail() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const gmailData = {
     articleTitle: "Gmail",
+    logo: "gmail-logo.png",
     definition:
       "Think of Gmail as your personal mailbox—but online. Instead of waiting for letters to come in the mail, emails arrive instantly on your computer or phone. No stamps, no waiting, no trips to the post office—just type, send, and your message arrives in seconds. It’s perfect for staying in touch with family, sending messages to businesses, or signing up for things like doctor’s appointments and newsletters.\n\nGmail is like your home mailbox, but faster, safer, and always available.",
 

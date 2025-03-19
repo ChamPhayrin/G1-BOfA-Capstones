@@ -3,7 +3,7 @@ const connection = require("../configs/dbconfig.cjs");
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
-    const query = 'SELECT id, username, email FROM users WHERE role_id = 2';
+    const query = 'SELECT id, username, email FROM users WHERE role_id = 3';
     const [allUsers] = await connection.execute(query);
     res.status(200).json(allUsers);
   } catch (error) {
@@ -18,12 +18,11 @@ const getUser = async (req, res) => {
     const { id } = req.params;
     if (!id) return res.status(400).json({ message: "ID is required." });
 
-    // Include `accountCreated` in the SELECT query
     const query = 'SELECT id, username, email, created_at FROM users WHERE id = ?';
     const [user] = await connection.execute(query, [id]);
 
     if (user.length === 0) return res.status(404).json({ message: "User not found" });
-    res.status(200).json(user[0]); // Return the user data with `accountCreated`
+    res.status(200).json(user[0]);
   } catch (error) {
     console.error("Error fetching user:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -50,7 +49,7 @@ const updateUser = async (req, res) => {
 // Delete a user
 const deleteUser = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // Get id from URL params
     if (!id) return res.status(400).json({ message: "ID is required." });
 
     const query = 'DELETE FROM users WHERE id = ?';
