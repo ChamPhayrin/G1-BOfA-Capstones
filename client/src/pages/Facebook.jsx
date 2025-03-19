@@ -5,6 +5,7 @@ export default function Facebook() {
   const facebookData = {
     // FB Heading
     articleTitle: "Facebook",
+    logo: "fb-logo.png",
     // What's FB
     definition:
       "Think of Facebook like a giant community bulletin board, but instead of walking down to the local center to check it, you can see it from the comfort of your home. It’s a place where your kids and grandkids post pictures—so you don’t have to wait for holiday cards in the mail. It lets you stay in touch with old friends—maybe even that buddy from high school or a cousin you haven’t seen in years. You can join groups for hobbies you love—gardening, classic cars, cooking, church groups, you name it. In short? Facebook helps you stay connected without having to figure out texting, group chats, or a hundred different apps.",

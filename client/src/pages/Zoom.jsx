@@ -4,6 +4,7 @@ export default function Zoom() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const zoomData = {
     articleTitle: "Zoom",
+    logo: "zoom-logo.png",
     definition:
       "Think of Zoom like a phone call—but with video.\n\n" +
       "Want to see your grandkids’ faces when you talk to them? Zoom lets you do that.\n" +

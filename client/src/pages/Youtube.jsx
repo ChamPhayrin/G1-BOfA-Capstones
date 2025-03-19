@@ -4,6 +4,7 @@ export default function YouTube() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const youtubeData = {
     articleTitle: "YouTube",
+    logo: "youtube-logo.webp",
     definition:
       "Think of YouTube like your own personal TV, but instead of flipping through channels, you can watch exactly what you want, whenever you want. Want to learn how to bake the perfect apple pie? YouTube has a video for that. Need to fix something around the house? YouTube has thousands of step-by-step guides. Just want to relax and watch funny videos or old TV clips? YouTube has endless entertainment.\n\nYouTube is like a giant library of videos on every topic you can imagine.",
 
