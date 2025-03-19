@@ -40,7 +40,10 @@ export default function Header() {
 
   return (
     <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-md">
-      <nav className="p-5 flex justify-between items-center max-w-7xl mx-auto" aria-label="Main Navigation">
+      <nav
+        className="p-5 flex justify-between items-center max-w-7xl mx-auto"
+        aria-label="Main Navigation"
+      >
         {/* Hamburger Menu Button */}
         <button
           onClick={() => setMenuOpen(true)}
@@ -101,20 +104,38 @@ export default function Header() {
               </button>
 
               {/* Mobile Navigation Links */}
-              <ul className="space-y-4 text-lg">
+              <ul className="space-y-4 text-lg list-none pl-0">
                 <li>
-                  <NavLink to="/" className="flex items-center hover:text-blue-400">
-                    <FontAwesomeIcon icon={faHome} className="w-6 h-6 mr-3" /> Home
+                  <NavLink
+                    to="/"
+                    className="flex items-center hover:text-blue-400"
+                  >
+                    <FontAwesomeIcon icon={faHome} className="w-6 h-6 mr-3" />{" "}
+                    Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/articles" className="flex items-center hover:text-blue-400">
-                    <FontAwesomeIcon icon={faNewspaper} className="w-6 h-6 mr-3" /> Articles
+                  <NavLink
+                    to="/articles"
+                    className="flex items-center hover:text-blue-400"
+                  >
+                    <FontAwesomeIcon
+                      icon={faNewspaper}
+                      className="w-6 h-6 mr-3"
+                    />{" "}
+                    Articles
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/contact" className="flex items-center hover:text-blue-400">
-                    <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 mr-3" /> Contact
+                  <NavLink
+                    to="/contact"
+                    className="flex items-center hover:text-blue-400"
+                  >
+                    <FontAwesomeIcon
+                      icon={faEnvelope}
+                      className="w-6 h-6 mr-3"
+                    />{" "}
+                    Contact
                   </NavLink>
                 </li>
                 {isLoggedIn ? (
@@ -129,8 +150,15 @@ export default function Header() {
                   </li>
                 ) : (
                   <li>
-                    <NavLink to="/login" className="flex items-center hover:text-blue-400">
-                      <FontAwesomeIcon icon={faSignInAlt} className="w-6 h-6 mr-3" /> Login
+                    <NavLink
+                      to="/login"
+                      className="flex items-center hover:text-blue-400"
+                    >
+                      <FontAwesomeIcon
+                        icon={faSignInAlt}
+                        className="w-6 h-6 mr-3"
+                      />{" "}
+                      Login
                     </NavLink>
                   </li>
                 )}

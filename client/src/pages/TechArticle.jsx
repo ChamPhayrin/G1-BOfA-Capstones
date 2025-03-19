@@ -36,7 +36,9 @@ export default function TechArticle({
         <h2 className="text-center font-bold text-3xl pt-10 mb-5 lg:text-5xl">
           Why You'd Use It
         </h2>
-        <p className="lg:text-3xl">Here’s why you might actually love {articleTitle}:</p>
+        <p className="lg:text-3xl">
+          Here’s why you might actually love {articleTitle}:
+        </p>
         {/* Mapping over whyUse array to make a <li> for each reason */}
         <ul className="space-y-5 text-left lg:text-2xl">
           {/* reason is the content for each reason. index is built into map, used as key for each list item */}
@@ -76,7 +78,11 @@ export default function TechArticle({
             </ol>
 
             {/* Conditionally render tip for step, if applicable */}
-            {step.tip && <p className="text-left mt-6 lg:text-2xl bg-amber-50">📻 Tip: {step.tip}</p>}
+            {step.tip && (
+              <p className="text-left mt-6 lg:text-2xl bg-amber-50">
+                📻 Tip: {step.tip}
+              </p>
+            )}
           </div>
         ))}
       </section>
