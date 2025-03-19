@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = 'https://g1-b-of-a-capstones.vercel.app';
+const BASE_URL = 'https://g1-bofa-capstones.onrender.com';
 
 export default axios.create({
   baseURL: BASE_URL
