@@ -17,7 +17,7 @@ const googleLogo =
 const Home = () => {
   return (
     <div
-      className="flex flex-col items-center justify-start min-h-screen bg-gray-50 w-full"
+      className="flex flex-col items-center justify-start min-h-screen bg-gray-50 w-full pb-16"
       role="main" // Main landmark for screen readers
     >
       {/* Main Heading */}
