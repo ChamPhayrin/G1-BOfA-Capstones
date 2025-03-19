@@ -2,6 +2,7 @@ import React from "react";
 import Welcome from "../components/Welcome"; // Welcome section with image collage and intro message
 import SocialCard from "../components/SocialCard"; // Component for social media platform cards
 import ArticleSection from "../components/ArticleSection"; // Component for latest tech articles
+import { Navigate } from "react-router-dom";
 
 // Social media platform logos (Updated to real logos)
 const facebookLogo =
@@ -78,7 +79,7 @@ const Home = () => {
               title="Facebook"
               text="Connect with family, discover new communities, and share moments that matter."
               buttonText="Click Here"
-              onClick={() => window.open("https://www.facebook.com", "_blank")}
+              onClick={() => (window.location.href = "/articles/facebook")}
               aria-label="Visit Facebook"
             />
           </div>
@@ -96,7 +97,7 @@ const Home = () => {
               title="Gmail"
               text="Stay in touch and manage your emails easily with Gmail."
               buttonText="Click Here"
-              onClick={() => window.open("https://mail.google.com", "_blank")}
+              onClick={() => (window.location.href = "/articles/gmail")}
               aria-label="Check your Gmail Inbox"
             />
           </div>
@@ -112,9 +113,9 @@ const Home = () => {
                 />
               }
               title="YouTube"
-              text="Watch, learn, and explore millions of videos on YouTube."
+              text="Watch, learn, and explore millions of videos."
               buttonText="Click Here"
-              onClick={() => window.open("https://www.youtube.com", "_blank")}
+              onClick={() => (window.location.href = "/articles/youtube")}
               aria-label="Watch videos on YouTube"
             />
           </div>
@@ -132,7 +133,7 @@ const Home = () => {
               title="Google"
               text="Search for anything, find answers, and explore the web."
               buttonText="Click Here"
-              onClick={() => window.open("https://www.google.com", "_blank")}
+              onClick={() => (window.location.href = "/articles/google")}
               aria-label="Search on Google"
             />
           </div>

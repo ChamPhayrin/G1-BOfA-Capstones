@@ -16,7 +16,7 @@ const logEvents = async (message, logName) => {
 			logItem
 		);
 	} catch (err) {
-		console.log(err);
+		throw err;
 	}
 };
 

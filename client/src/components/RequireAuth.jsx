@@ -6,8 +6,6 @@ const RequireAuth = ({ allowedRoles }) => {
   const { auth } = useAuth();
   const location = useLocation();
 
-  console.log("User roles:", auth?.roles); // Debugging
-  console.log("Allowed roles:", allowedRoles); // Debugging
 
   // Convert roles to an array if it's a single value
   const userRoles = Array.isArray(auth?.roles) ? auth.roles : [auth?.roles];

@@ -12,8 +12,6 @@ const useRefreshToken = () => {
 
       // Update the authentication state with the new access token
       setAuth((prev) => {
-        console.log("Previous auth state:", JSON.stringify(prev));
-        console.log("New access token:", response.data.accessToken);
         return { 
           ...prev, 
           roles: response.data.roles,

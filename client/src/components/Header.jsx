@@ -11,6 +11,7 @@ import {
   faUser,
   faSignInAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

@@ -7,6 +7,7 @@ import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons"; // Importing brand icons
 import { faPhoneAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Importing solid icons for contact info
+import React from "react";
 
 export default function Footer() {
   return (
