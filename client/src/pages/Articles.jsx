@@ -133,6 +133,5 @@ export default function Articles() {
           </div>
         )}
       </main>
-    </div>
-  );
-}
+  </div>
+);}
