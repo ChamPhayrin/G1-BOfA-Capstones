@@ -4,6 +4,7 @@ export default function GoogleMaps() {
   // This object holds data we will pass as a prop to our TechArticle components, this will make our articles dynamic
   const googleMapsData = {
     articleTitle: "Google Maps",
+    logo: "google-maps-logo.png",
     definition:
       "Think of Google Maps like a digital map and personal guide all in one.\n\n" +
       "Need to find the fastest route to the store? Google Maps will show you.\n" +
