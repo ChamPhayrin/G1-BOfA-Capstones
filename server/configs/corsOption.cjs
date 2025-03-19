@@ -1,7 +1,6 @@
 // configs/corsOption.cjs
 const allowedOrigins = [
-  "http://localhost:3000", // Replace with frontend origin
-  "http://localhost:5173",
+  "https://g1-b-of-a-capstones.vercel.app/"
 ];
 
 const corsOptions = {
