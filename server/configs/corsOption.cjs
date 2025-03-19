@@ -1,6 +1,7 @@
 // configs/corsOption.cjs
 const allowedOrigins = [
-  "https://g1-b-of-a-capstones.vercel.app/"
+  "https://g1-bofa-capstones.onrender.com/",
+  "https://g1-bofa-capstones.onrender.com"
 ];
 
 const corsOptions = {
