@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  CalendarIcon,
-  ClockIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/outline";
+import { CalendarIcon, ClockIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 export default function Articles() {
@@ -16,7 +12,7 @@ export default function Articles() {
       date: "Mar 10, 2025",
       readTime: "8 min read",
       category: "Shopping",
-      link: '/amazon'
+      link: "/amazon",
     },
     {
       id: 2,
@@ -26,7 +22,7 @@ export default function Articles() {
       date: "Mar 12, 2025",
       readTime: "10 min read",
       category: "Social Media",
-      link: '/facebook'
+      link: "/facebook",
     },
     {
       id: 3,
@@ -36,7 +32,7 @@ export default function Articles() {
       date: "Mar 14, 2025",
       readTime: "7 min read",
       category: "Email",
-      link: '/gmail'
+      link: "/gmail",
     },
     {
       id: 4,
@@ -46,7 +42,7 @@ export default function Articles() {
       date: "Mar 16, 2025",
       readTime: "9 min read",
       category: "Productivity",
-      link: '/google'
+      link: "/google",
     },
     {
       id: 5,
@@ -56,7 +52,7 @@ export default function Articles() {
       date: "Mar 18, 2025",
       readTime: "6 min read",
       category: "Navigation",
-      link: '/google-maps'
+      link: "/google-maps",
     },
     {
       id: 6,
@@ -66,7 +62,7 @@ export default function Articles() {
       date: "Mar 20, 2025",
       readTime: "11 min read",
       category: "Video Content",
-      link: '/youtube'
+      link: "/youtube",
     },
     {
       id: 7,
@@ -76,10 +72,11 @@ export default function Articles() {
       date: "Mar 22, 2025",
       readTime: "7 min read",
       category: "Remote Work",
-      link: '/zoom'
-    }
+      link: "/zoom",
+    },
   ];
 
+  return (
     <div className="min-h-screen bg-gray-50 p-6">
       <header className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900">Tech Articles for Everyone</h1>
@@ -103,7 +100,7 @@ export default function Articles() {
                   <h2 className="text-2xl font-semibold text-gray-900 leading-tight">{article.title}</h2>
                   <p className="text-gray-600 text-base leading-relaxed">{article.excerpt}</p>
                 </div>
-                
+
                 <div className="flex justify-between items-center mt-5 text-gray-500 text-sm">
                   <div className="flex gap-4">
                     <div className="flex items-center">
@@ -116,7 +113,10 @@ export default function Articles() {
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
-                    <Link to={article.link} className="flex items-center text-white bg-sky-600 hover:bg-sky-700 font-medium px-5 py-2 rounded-lg shadow-md text-lg">
+                    <Link
+                      to={article.link}
+                      className="flex items-center text-white bg-sky-600 hover:bg-sky-700 font-medium px-5 py-2 rounded-lg shadow-md text-lg"
+                    >
                       Read More
                       <ChevronRightIcon className="w-6 h-6 ml-2" />
                     </Link>
@@ -132,5 +132,6 @@ export default function Articles() {
           </div>
         )}
       </main>
-  </div>
-;}
+    </div>
+  );
+}
