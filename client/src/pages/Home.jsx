@@ -79,7 +79,7 @@ const Home = () => {
               title="Facebook"
               text="Connect with family, discover new communities, and share moments that matter."
               buttonText="Click Here"
-              onClick={() => window.location.href = "/articles/facebook"}
+              onClick={() => window.location.href = "/facebook"}
               aria-label="Visit Facebook"
             />
           </div>
@@ -97,7 +97,7 @@ const Home = () => {
               title="Gmail"
               text="Stay in touch and manage your emails easily with Gmail."
               buttonText="Click Here"
-              onClick={() => window.location.href = "/articles/gmail"}
+              onClick={() => window.location.href = "/gmail"}
               aria-label="Check your Gmail Inbox"
             />
           </div>
@@ -115,7 +115,7 @@ const Home = () => {
               title="YouTube"
               text="Watch, learn, and explore millions of videos."
               buttonText="Click Here"
-              onClick={() => window.location.href = "/articles/youtube"}
+              onClick={() => window.location.href = "/youtube"}
               aria-label="Watch videos on YouTube"
             />
           </div>
@@ -133,7 +133,7 @@ const Home = () => {
               title="Google"
               text="Search for anything, find answers, and explore the web."
               buttonText="Click Here"
-              onClick={() => window.location.href = "/articles/google"}
+              onClick={() => window.location.href = "/google"}
               aria-label="Search on Google"
             />
           </div>
