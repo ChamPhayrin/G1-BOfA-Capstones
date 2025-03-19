@@ -55,7 +55,8 @@ const handleRefreshToken = async (req, res) => {
       {
         UserInfo: {
           username: foundUser.username,
-          role_code: roleCode,
+          userId: foundUser.id,
+          role_code: roleCode, // Include role_code in the token payload
         },
       },
       process.env.ACCESS_TOKEN_SECRET,

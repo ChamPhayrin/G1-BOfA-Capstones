@@ -1,20 +1,14 @@
 const express = require("express");
 const router = express.Router();
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-
 const usersController = require('../../controllers/usersControllers.cjs');
 const verifyRoles = require("../../middleware/verifyRoles.cjs");
 
+router.route("/")
+  .get(verifyRoles(5150), usersController.getAllUsers);
 
-
-
-//routes
-router.route("/") 
-  .get(verifyRoles(5150), usersController.getAllUsers) 
+router.route("/:id")
+  .get(verifyRoles(2001, 5150), usersController.getUser)
   .put(verifyRoles(2001, 5150), usersController.updateUser)
   .delete(verifyRoles(2001, 5150), usersController.deleteUser);
-router.route("/:id") //parameter in url 
-  .get(verifyRoles(2001, 5150), usersController.getUser);
 
-module.exports = router; //export the router
+module.exports = router;

@@ -39,6 +39,7 @@ const handleLogin = async (req, res) => {
       {
         UserInfo: {
           username: foundUser.username,
+          userId: foundUser.id,
           role_code: foundUser.role_code, // Include role_code in the token payload
         },
       },
@@ -65,9 +66,14 @@ const handleLogin = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    // Send the access token in the response
-    res.json({ role_code: foundUser.role_code, accessToken });
+    // Send the access token, user_id, and role_code in the response
+    res.json({ 
+      accessToken, 
+      user_id: foundUser.id, // Include user_id in the response
+      role_code: foundUser.role_code, // Include role_code in the response
+    });
   } catch (error) {
+    console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

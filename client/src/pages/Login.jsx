@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
-import useAuth from "../hooks/useAuth";
-import axios from "../api/axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from "../api/axios";
+import useAuth from "../hooks/useAuth";
 
-const login_url = "/auth";
+const LOGIN_URL = "/auth";
 
 export default function Login() {
-  const { setAuth, persist, setPersist } = useAuth();
+  const { setAuth, persist, setPersist } = useAuth(); // Add persist and setPersist
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/"; // Redirect to the intended page after login
   const userRef = useRef();
   const errRef = useRef();
 
@@ -18,36 +18,42 @@ export default function Login() {
   const [errMsg, setErrMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [trustAccount, setTrustAccount] = useState(persist); // Add trustAccount state
 
+  // Focus on the username input when the component mounts
   useEffect(() => {
     userRef.current.focus();
   }, []);
 
+  // Clear the error message when the user or password changes
   useEffect(() => {
     setErrMsg("");
   }, [user, pwd]);
 
+  // Handle trust account checkbox change
+  const handleTrustAccountChange = () => {
+    setTrustAccount((prev) => !prev);
+    setPersist((prev) => !prev); // Update persist state in AuthContext
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
       const response = await axios.post(
-        login_url,
+        LOGIN_URL,
         JSON.stringify({ user, pwd }),
-        {
-          headers: { "Content-type": "application/json" },
-          withCredentials: true,
-        }
+        { headers: { "Content-Type": "application/json" }, withCredentials: true }
       );
-      console.log("Login successful", response?.data);
       const accessToken = response?.data?.accessToken;
-      const roles = response?.data?.roles;
-      setAuth({ user, pwd, roles, accessToken });
-      setUser("");
-      setPwd("");
+      const roles = response?.data?.role_code;
+      const user_id = response?.data?.user_id; // Ensure this is included in the response
+      setAuth({ user, roles, accessToken, user_id }); // Set user_id in auth
       navigate(from, { replace: true });
     } catch (error) {
+      console.error("Login failed:", error);
       if (!error?.response) {
         setErrMsg("No Server Response");
       } else if (error.response?.status === 400) {
@@ -55,22 +61,13 @@ export default function Login() {
       } else if (error.response?.status === 401) {
         setErrMsg("Incorrect Username or Password");
       } else {
-        setErrMsg("Login failed");
+        setErrMsg("Login Failed");
       }
       errRef.current.focus();
     } finally {
       setIsLoading(false);
     }
   };
-
-  const togglePersist = () => {
-    setPersist((prev) => !prev); // Toggle persist
-  };
-
-  useEffect(() => {
-    console.log("Persisting login:", persist); // Debugging persist state
-    localStorage.setItem("persist", JSON.stringify(persist)); // Ensure persistence value is saved in localStorage
-  }, [persist]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 animated-background">
@@ -162,7 +159,7 @@ export default function Login() {
                   onChange={(e) => setPwd(e.target.value)}
                   value={pwd}
                   required
-                  className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your password"
                 />
                 <button
@@ -212,6 +209,23 @@ export default function Login() {
               </div>
             </div>
 
+            {/* Trust Account Checkbox */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="trustAccount"
+                checked={trustAccount}
+                onChange={handleTrustAccountChange}
+                className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+              />
+              <label
+                htmlFor="trustAccount"
+                className="ml-2 text-sm text-gray-700"
+              >
+                Trust this device
+              </label>
+            </div>
+
             <button
               type="submit"
               disabled={isLoading}
@@ -219,32 +233,17 @@ export default function Login() {
             >
               {isLoading ? "Logging In..." : "Login"}
             </button>
-
-            <div className="flex items-center justify-between mt-4">
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="persist"
-                  checked={persist}
-                  onChange={togglePersist}
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500"
-                />
-                <label
-                  htmlFor="persist"
-                  className="ml-2 text-sm text-gray-600"
-                >
-                  Trust this device
-                </label>
-              </div>
-            </div>
           </form>
 
           <div className="text-center mt-6">
+            <p>
+              Need an Account? 
+            </p>
             <Link
-              to="/forgot-password"
+              to="/signup"
               className="text-sm text-indigo-600 hover:text-indigo-700"
             >
-              Forgot Password?
+              Sign up
             </Link>
           </div>
         </div>

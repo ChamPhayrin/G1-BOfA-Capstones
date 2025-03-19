@@ -2,11 +2,8 @@ const connection = require("../configs/dbconfig.cjs");
 
 const getAllContactSubmissions = async (req, res) => {
   try {
-    // Selects all contact submissions
-    const query = 'SELECT id, name, email, subject, status, created_at, updated_at FROM contact_submissions';
+    const query = 'SELECT id, name, email, subject, message, status, created_at FROM contact_submissions';
     const [submissions] = await connection.execute(query);
-
-    // Send the results back to the client
     res.status(200).json(submissions);
   } catch (error) {
     console.error("Error fetching contact submissions:", error);
@@ -18,12 +15,11 @@ const getContactSubmissionById = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate input
     if (!id) {
       return res.status(400).json({ message: "ID is required." });
     }
 
-    const getSubmissionQ = 'SELECT * FROM contact_submissions WHERE id = ?';
+    const getSubmissionQ = 'SELECT id, name, email, subject, message, status, created_at FROM contact_submissions WHERE id = ?';
     const [submission] = await connection.execute(getSubmissionQ, [id]);
 
     if (submission.length === 0) {
@@ -41,7 +37,6 @@ const createContactSubmission = async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
 
-    // Validate input
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ message: "All fields are required." });
     }
@@ -63,7 +58,6 @@ const updateContactSubmission = async (req, res) => {
   try {
     const { id, status } = req.body;
 
-    // Validate input
     if (!id || !status) {
       return res.status(400).json({ message: "ID and status are required." });
     }
@@ -80,18 +74,10 @@ const updateContactSubmission = async (req, res) => {
 
 const deleteContactSubmission = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // Get id from URL params
 
-    // Validate input
     if (!id) {
       return res.status(400).json({ message: "ID is required." });
-    }
-
-    const getSubmissionQ = 'SELECT * FROM contact_submissions WHERE id = ?';
-    const [submission] = await connection.execute(getSubmissionQ, [id]);
-
-    if (submission.length === 0) {
-      return res.status(404).json({ message: "Contact submission not found" });
     }
 
     const deleteQuery = 'DELETE FROM contact_submissions WHERE id = ?';
