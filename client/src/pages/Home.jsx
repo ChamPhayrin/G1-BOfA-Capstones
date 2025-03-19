@@ -2,6 +2,7 @@ import React from "react";
 import Welcome from "../components/Welcome"; // Welcome section with image collage and intro message
 import SocialCard from "../components/SocialCard"; // Component for social media platform cards
 import ArticleSection from "../components/ArticleSection"; // Component for latest tech articles
+import { Navigate } from "react-router-dom";
 
 // Social media platform logos (Updated to real logos)
 const facebookLogo =
@@ -74,72 +75,68 @@ const Home = () => {
                   className="w-16 h-16 object-contain"
                   aria-hidden="true" // Marks decorative images as ignored for screen readers
                 />
-              }
-              title="Facebook"
-              text="Connect with family, discover new communities, and share moments that matter."
-              buttonText="Click Here"
-              onClick={() => window.open("https://www.facebook.com", "_blank")}
-              aria-label="Visit Facebook"
-            />
-          </div>
+                }
+                title="Facebook"
+                text="Connect with family, discover new communities, and share moments that matter."
+                buttonText="Click Here"
+                onClick={() => window.location.href = "/articles/facebook"}
+                aria-label="Visit Facebook"
+                />
+                </div>
 
-          <div role="listitem">
-            <SocialCard
-              logo={
+                <div role="listitem">
+                <SocialCard
+                logo={
                 <img
                   src={gmailLogo}
                   alt="Gmail Logo"
                   className="w-16 h-16 object-contain"
                   aria-hidden="true"
                 />
-              }
-              title="Gmail"
-              text="Stay in touch and manage your emails easily with Gmail."
-              buttonText="Click Here"
-              onClick={() => window.open("https://mail.google.com", "_blank")}
-              aria-label="Check your Gmail Inbox"
-            />
-          </div>
+                }
+                title="Gmail"
+                text="Stay in touch and manage your emails easily with Gmail."
+                buttonText="Click Here"
+                onClick={() => window.location.href = "/articles/gmail"}
+                aria-label="Check your Gmail Inbox"
+                />
+                </div>
 
-          <div role="listitem">
-            <SocialCard
-              logo={
+                <div role="listitem">
+                <SocialCard
+                logo={
                 <img
                   src={youtubeLogo}
                   alt="YouTube Logo"
                   className="w-16 h-16 object-contain"
                   aria-hidden="true"
                 />
-              }
-              title="YouTube"
-              text="Watch, learn, and explore millions of videos on YouTube."
-              buttonText="Click Here"
-              onClick={() => window.open("https://www.youtube.com", "_blank")}
-              aria-label="Watch videos on YouTube"
-            />
-          </div>
+                }
+                title="YouTube"
+                text="Watch, learn, and explore millions of videos."
+                buttonText="Click Here"
+                onClick={() => window.location.href = "/articles/youtube"}
+                aria-label="Watch videos on YouTube"
+                />
+                </div>
 
-          <div role="listitem">
-            <SocialCard
-              logo={
+                <div role="listitem">
+                <SocialCard
+                logo={
                 <img
                   src={googleLogo}
                   alt="Google Logo"
                   className="w-16 h-16 object-contain"
                   aria-hidden="true"
                 />
-              }
-              title="Google"
-              text="Search for anything, find answers, and explore the web."
-              buttonText="Click Here"
-              onClick={() => window.open("https://www.google.com", "_blank")}
-              aria-label="Search on Google"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Article Section Component */}
+                }
+                title="Google"
+                text="Search for anything, find answers, and explore the web."
+                buttonText="Click Here"
+                onClick={() => window.location.href = "/articles/google"}
+                aria-label="Search on Google"
+                />
+                </div>}
       <ArticleSection />
     </div>
   );

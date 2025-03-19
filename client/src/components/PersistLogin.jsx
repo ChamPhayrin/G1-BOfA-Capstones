@@ -36,8 +36,6 @@ const PersistLogin = () => {
   }, [auth, persist, refresh]);
 
   useEffect(() => {
-    console.log(`isLoading: ${isLoading}`);
-    console.log(`accessToken: ${JSON.stringify(auth?.accessToken)}`);
   }, [isLoading, auth]);
 
   // Conditionally render the Outlet based on persist and loading state
