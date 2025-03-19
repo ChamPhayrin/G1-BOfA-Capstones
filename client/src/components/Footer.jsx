@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'; // Importing brand icons
-import { faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons'; // Importing solid icons for contact info
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faTwitter,
+  faLinkedin,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons"; // Importing brand icons
+import { faPhoneAlt, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Importing solid icons for contact info
 
 export default function Footer() {
   return (
@@ -10,28 +15,41 @@ export default function Footer() {
         {/* Column 1: About Us */}
         <section>
           <h3 className="font-bold text-lg mb-4">About Us</h3>
-          <p className="text-sm">We are the BofA Team 1, creating seamless experiences through innovative technology.</p>
+          <p className="text-sm">
+            We are the BofA Team 1, creating seamless experiences through
+            innovative technology.
+          </p>
         </section>
 
         {/* Column 2: Quick Links */}
         <nav aria-labelledby="quick-links">
-          <h3 id="quick-links" className="font-bold text-lg mb-4">Quick Links</h3>
-          <ul className="space-y-2 text-sm">
+          <h3 id="quick-links" className="font-bold text-lg mb-4">
+            Quick Links
+          </h3>
+          <ul className="space-y-2 text-sm list-none pl-0">
             <li>
-              <NavLink to="/" className="hover:text-blue-400">Home</NavLink>
+              <NavLink to="/" className="hover:text-blue-400">
+                Home
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/articles" className="hover:text-blue-400">Articles</NavLink>
+              <NavLink to="/articles" className="hover:text-blue-400">
+                Articles
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/contact" className="hover:text-blue-400">Contact</NavLink>
+              <NavLink to="/contact" className="hover:text-blue-400">
+                Contact
+              </NavLink>
             </li>
           </ul>
         </nav>
 
         {/* Column 3: Contact Information */}
         <section aria-labelledby="contact-info">
-          <h3 id="contact-info" className="font-bold text-lg mb-4">Contact</h3>
+          <h3 id="contact-info" className="font-bold text-lg mb-4">
+            Contact
+          </h3>
           <address className="text-sm">
             <p className="mb-2">
               <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
@@ -46,18 +64,44 @@ export default function Footer() {
 
         {/* Column 4: Social Media */}
         <section aria-labelledby="social-media">
-          <h3 id="social-media" className="font-bold text-lg mb-4">Follow Us</h3>
+          <h3 id="social-media" className="font-bold text-lg mb-4">
+            Follow Us
+          </h3>
           <div className="flex space-x-4 text-xl">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400" aria-label="Facebook">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400"
+              aria-label="Facebook"
+            >
               <FontAwesomeIcon icon={faFacebook} />
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400" aria-label="Twitter">
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400"
+              aria-label="Twitter"
+            >
               <FontAwesomeIcon icon={faTwitter} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400" aria-label="LinkedIn">
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400"
+              aria-label="LinkedIn"
+            >
               <FontAwesomeIcon icon={faLinkedin} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400" aria-label="Instagram">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-blue-400"
+              aria-label="Instagram"
+            >
               <FontAwesomeIcon icon={faInstagram} />
             </a>
           </div>

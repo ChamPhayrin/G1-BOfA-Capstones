@@ -6,6 +6,10 @@ ol {
 }
 
 ul {
-  list-style-type: disc !important;
+  list-style-type: none !important;
   padding-left: 20px !important;
+}
+
+body {
+  @apply font-bold text-gray-900;
 }

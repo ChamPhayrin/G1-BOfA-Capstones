@@ -1,22 +1,36 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faTrash, faUsers, faBars, faTimes, faEye } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faTrash,
+  faUsers,
+  faBars,
+  faTimes,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import LogoutButton from "../components/LogoutButton";
 
 // Reusable Confirmation Modal
 const ConfirmationModal = ({ message, onConfirm, onCancel, isDeleting }) => {
   return (
-    <div 
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" 
-      role="dialog" 
-      aria-labelledby="confirmation-title" 
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      role="dialog"
+      aria-labelledby="confirmation-title"
       aria-describedby="confirmation-message"
       aria-modal="true"
     >
       <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h2 id="confirmation-title" className="text-xl font-bold text-gray-800 mb-4">Confirm Deletion</h2>
-        <p id="confirmation-message" className="text-gray-600 mb-6">{message}</p>
+        <h2
+          id="confirmation-title"
+          className="text-xl font-bold text-gray-800 mb-4"
+        >
+          Confirm Deletion
+        </h2>
+        <p id="confirmation-message" className="text-gray-600 mb-6">
+          {message}
+        </p>
         <div className="flex justify-end gap-4">
           <button
             onClick={onCancel}
@@ -42,21 +56,34 @@ const ConfirmationModal = ({ message, onConfirm, onCancel, isDeleting }) => {
 // Users Table Component
 const UsersTable = ({ users, confirmDelete }) => {
   return (
-    <section className="bg-white rounded-lg shadow-sm p-4" aria-labelledby="users-heading">
-      <h2 id="users-heading" className="text-xl font-bold text-gray-800 mb-4">Users</h2>
+    <section
+      className="bg-white rounded-lg shadow-sm p-4"
+      aria-labelledby="users-heading"
+    >
+      <h2 id="users-heading" className="text-xl font-bold text-gray-800 mb-4">
+        Users
+      </h2>
       <div className="overflow-x-auto">
         <table className="w-full" aria-label="Users list">
           <thead>
             <tr>
-              <th scope="col" className="text-left p-2">Username</th>
-              <th scope="col" className="text-left p-2">Email</th>
-              <th scope="col" className="text-left p-2">Actions</th>
+              <th scope="col" className="text-left p-2">
+                Username
+              </th>
+              <th scope="col" className="text-left p-2">
+                Email
+              </th>
+              <th scope="col" className="text-left p-2">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {users.length === 0 ? (
               <tr>
-                <td colSpan="3" className="p-4 text-center text-gray-500">No users found</td>
+                <td colSpan="3" className="p-4 text-center text-gray-500">
+                  No users found
+                </td>
               </tr>
             ) : (
               users.map((user) => (
@@ -85,22 +112,40 @@ const UsersTable = ({ users, confirmDelete }) => {
 // Messages Table Component
 const MessagesTable = ({ messages, confirmDelete, setSelectedMessage }) => {
   return (
-    <section className="bg-white rounded-lg shadow-sm p-4" aria-labelledby="messages-heading">
-      <h2 id="messages-heading" className="text-xl font-bold text-gray-800 mb-4">Messages</h2>
+    <section
+      className="bg-white rounded-lg shadow-sm p-4"
+      aria-labelledby="messages-heading"
+    >
+      <h2
+        id="messages-heading"
+        className="text-xl font-bold text-gray-800 mb-4"
+      >
+        Messages
+      </h2>
       <div className="overflow-x-auto">
         <table className="w-full" aria-label="Messages list">
           <thead>
             <tr>
-              <th scope="col" className="text-left p-2">Name</th>
-              <th scope="col" className="text-left p-2 hidden sm:table-cell">Email</th>
-              <th scope="col" className="text-left p-2">Subject</th>
-              <th scope="col" className="text-left p-2">Actions</th>
+              <th scope="col" className="text-left p-2">
+                Name
+              </th>
+              <th scope="col" className="text-left p-2 hidden sm:table-cell">
+                Email
+              </th>
+              <th scope="col" className="text-left p-2">
+                Subject
+              </th>
+              <th scope="col" className="text-left p-2">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {messages.length === 0 ? (
               <tr>
-                <td colSpan="4" className="p-4 text-center text-gray-500">No messages found</td>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  No messages found
+                </td>
               </tr>
             ) : (
               messages.map((message) => (
@@ -139,14 +184,19 @@ const MessagesTable = ({ messages, confirmDelete, setSelectedMessage }) => {
 // Message Details Component
 const MessageDetails = ({ message, onClose }) => {
   return (
-    <div 
+    <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       role="dialog"
       aria-labelledby="message-details-title"
       aria-modal="true"
     >
       <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg max-w-md w-full">
-        <h2 id="message-details-title" className="text-xl font-bold text-gray-800 mb-4">Message Details</h2>
+        <h2
+          id="message-details-title"
+          className="text-xl font-bold text-gray-800 mb-4"
+        >
+          Message Details
+        </h2>
         <div className="space-y-4">
           <dl>
             <div className="flex flex-col sm:flex-row sm:gap-2">
@@ -163,7 +213,9 @@ const MessageDetails = ({ message, onClose }) => {
             </div>
             <div className="flex flex-col">
               <dt className="font-medium text-gray-600">Message:</dt>
-              <dd className="mt-2 text-gray-800 break-words">{message.message}</dd>
+              <dd className="mt-2 text-gray-800 break-words">
+                {message.message}
+              </dd>
             </div>
             <div className="flex flex-col sm:flex-row sm:gap-2">
               <dt className="font-medium text-gray-600">Status:</dt>
@@ -243,7 +295,9 @@ export default function Admin() {
         setUsers(users.filter((user) => user.id !== itemToDelete.id));
       } else if (itemToDelete.type === "message") {
         await axiosPrivate.delete(`/messages/${itemToDelete.id}`);
-        setMessages(messages.filter((message) => message.id !== itemToDelete.id));
+        setMessages(
+          messages.filter((message) => message.id !== itemToDelete.id)
+        );
       }
       setShowConfirmation(false);
       setError("");
@@ -263,22 +317,29 @@ export default function Admin() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100">
       {/* Mobile Header */}
-      <header className="lg:hidden flex items-center justify-between h-16 bg-gradient-to-r from-sky-600 to-slate-600 text-white px-4" role="banner">
+      <header
+        className="lg:hidden flex items-center justify-between h-16 bg-gradient-to-r from-sky-600 to-slate-600 text-white px-4"
+        role="banner"
+      >
         <h1 className="text-xl font-bold">Admin Dashboard</h1>
-        <button 
-          onClick={() => setSidebarOpen(!sidebarOpen)} 
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-label={sidebarOpen ? "Close menu" : "Open menu"}
           aria-expanded={sidebarOpen}
           aria-controls="sidebar-menu"
           className="text-white p-2 focus:outline-none focus:ring-2 focus:ring-white rounded-md"
         >
-          <FontAwesomeIcon icon={sidebarOpen ? faTimes : faBars} size="lg" aria-hidden="true" />
+          <FontAwesomeIcon
+            icon={sidebarOpen ? faTimes : faBars}
+            size="lg"
+            aria-hidden="true"
+          />
         </button>
       </header>
 
       {/* Overlay for mobile sidebar */}
       {sidebarOpen && (
-        <div 
+        <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-20"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
@@ -286,10 +347,10 @@ export default function Admin() {
       )}
 
       {/* Sidebar */}
-      <aside 
+      <aside
         id="sidebar-menu"
         className={`fixed lg:static top-0 left-0 z-30 w-64 h-full bg-white shadow-md transform transition-transform duration-300 ease-in-out ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
         aria-label="Admin navigation"
       >
@@ -297,16 +358,22 @@ export default function Admin() {
           <h1 className="text-white text-xl font-bold">Admin Dashboard</h1>
         </div>
         <nav className="px-4 py-6" aria-label="Admin sections">
-          <ul className="space-y-2" role="list">
+          <ul className="space-y-2" list-none pl-0 role="list">
             <li>
               <button
                 onClick={() => handleTabChange("users")}
                 className={`w-full flex items-center p-3 text-gray-700 rounded-lg ${
-                  activeTab === "users" ? "bg-indigo-50 text-indigo-600" : "hover:bg-gray-50"
+                  activeTab === "users"
+                    ? "bg-indigo-50 text-indigo-600"
+                    : "hover:bg-gray-50"
                 }`}
                 aria-current={activeTab === "users" ? "page" : undefined}
               >
-                <FontAwesomeIcon icon={faUsers} className="mr-3" aria-hidden="true" />
+                <FontAwesomeIcon
+                  icon={faUsers}
+                  className="mr-3"
+                  aria-hidden="true"
+                />
                 <span>Users</span>
               </button>
             </li>
@@ -314,11 +381,17 @@ export default function Admin() {
               <button
                 onClick={() => handleTabChange("messages")}
                 className={`w-full flex items-center p-3 text-gray-700 rounded-lg ${
-                  activeTab === "messages" ? "bg-indigo-50 text-indigo-600" : "hover:bg-gray-50"
+                  activeTab === "messages"
+                    ? "bg-indigo-50 text-indigo-600"
+                    : "hover:bg-gray-50"
                 }`}
                 aria-current={activeTab === "messages" ? "page" : undefined}
               >
-                <FontAwesomeIcon icon={faEnvelope} className="mr-3" aria-hidden="true" />
+                <FontAwesomeIcon
+                  icon={faEnvelope}
+                  className="mr-3"
+                  aria-hidden="true"
+                />
                 <span>Messages</span>
               </button>
             </li>
@@ -339,11 +412,19 @@ export default function Admin() {
 
         <div className="p-2 sm:p-4 md:p-6">
           {isLoading ? (
-            <div className="flex justify-center items-center h-64" role="status" aria-live="polite">
+            <div
+              className="flex justify-center items-center h-64"
+              role="status"
+              aria-live="polite"
+            >
               <span className="text-gray-600">Loading...</span>
             </div>
           ) : error ? (
-            <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6" role="alert" aria-live="assertive">
+            <div
+              className="bg-red-50 border-l-4 border-red-500 p-4 mb-6"
+              role="alert"
+              aria-live="assertive"
+            >
               <p className="text-red-700">{error}</p>
             </div>
           ) : activeTab === "users" ? (
@@ -370,9 +451,9 @@ export default function Admin() {
 
       {/* Message Details Pop-up */}
       {selectedMessage && (
-        <MessageDetails 
-          message={selectedMessage} 
-          onClose={() => setSelectedMessage(null)} 
+        <MessageDetails
+          message={selectedMessage}
+          onClose={() => setSelectedMessage(null)}
         />
       )}
     </div>
