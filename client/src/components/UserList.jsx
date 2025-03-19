@@ -18,10 +18,8 @@ export default function UserList() {
         const response = await axiosPrivate.get('/users', {
           singal: controller.signal
         });
-        console.log(response.data)
         isMounted && setUserList(response.data)
       } catch(error){
-        console.log(error)
         navigate('/login', {state: {from: location}, replace: true})
       }
     }

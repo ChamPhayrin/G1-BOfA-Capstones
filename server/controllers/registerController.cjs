@@ -31,7 +31,6 @@ const handleNewUser = async (req, res) => {
       const insertQ = 'INSERT INTO users (id, username, email, password_hash, role_id) VALUES (?, ?, ?, ?, ?)';
       await connection.execute(insertQ, [userId, username, email, hashedPwd, 3]); // Default role_id to 3
 
-      console.log('User created successfully:', { userId, username, email });
       res.status(201).json({ message: 'User created successfully', userId });
   } catch (error) {
       console.error('Error during user registration:', error);

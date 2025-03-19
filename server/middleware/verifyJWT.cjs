@@ -27,8 +27,6 @@ const verifyJWT = (req, res, next) => {
       req.roles = [decoded.UserInfo.role_code]; // Attach the role_code as an array
 
       // Debugging: Log the decoded payload and attached roles
-      console.log('Decoded JWT Payload:', decoded);
-      console.log('Attached Roles:', req.roles);
 
       // Proceed to the next middleware
       next();
