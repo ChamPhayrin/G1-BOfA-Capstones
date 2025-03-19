@@ -1,7 +1,7 @@
 const verifyRoles = (...allowedRoleCodes) => {
   return (req, res, next) => {
     // Check if the request has a role_code attached
-    if (!req?.role_code) {
+    if (!req?.user?.role_code) {
       console.error('No role_code found in request');
       return res.status(401).json({ message: 'Unauthorized: No role_code found' });
     }
