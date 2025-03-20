@@ -1,5 +1,9 @@
 import React from "react";
-import { CalendarIcon, ClockIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import {
+  CalendarIcon,
+  ClockIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
 export default function Articles() {
@@ -16,7 +20,7 @@ export default function Articles() {
     },
     {
       id: 2,
-      title: "Facebook: A Beginner’s Guide to Connecting with Friends",
+      title: "Facebook: A Beginner's Guide to Connecting with Friends",
       excerpt:
         "In this guide, you'll learn how to use Facebook to stay connected with family and friends, share photos, and join groups with similar interests.",
       date: "Mar 12, 2025",
@@ -77,58 +81,174 @@ export default function Articles() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <header className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900">Tech Articles for Everyone</h1>
-        <p className="text-lg text-gray-700 mt-2 max-w-2xl mx-auto">
-          Simple and easy guides to help you use technology with confidence.
-        </p>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Custom font import for logo-matching font */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+          
+          .logo-font {
+            font-family: 'Pacifico', cursive;
+            letter-spacing: 0.05em;
+          }
+        `}
+      </style>
+
+      {/* Hero Header with Gradient */}
+      <header className="bg-gradient-to-r from-sky-600 to-slate-600 text-white py-16 px-6 shadow-lg">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl font-bold text-center md:text-center logo-font">
+            Tech Articles
+          </h1>
+          <p className="text-lg mt-6 text-white/90  mx-auto md:mx-0 md:text-center">
+            Simple and easy guides to help you use technology with confidence.
+          </p>
+        </div>
       </header>
 
-      <main>
-        {articleData.length > 0 ? (
-          <div className="space-y-6 max-w-3xl mx-auto">
-            {articleData.map((article) => (
-              <div
-                key={article.id}
-                className="border border-gray-300 rounded-lg p-6 bg-white shadow-md hover:shadow-lg transition"
-              >
-                <div className="flex flex-col gap-2">
-                  <span className="bg-gray-200 text-gray-800 text-xs font-semibold px-3 py-1 rounded-full w-max">
-                    {article.category}
-                  </span>
-                  <h2 className="text-2xl font-semibold text-gray-900 leading-tight">{article.title}</h2>
-                  <p className="text-gray-600 text-base leading-relaxed">{article.excerpt}</p>
+      {/* Featured Article (First Article) */}
+      {articleData.length > 0 && (
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row">
+            <div className="md:w-7/12 p-8 flex flex-col">
+              <span className="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1 rounded-full w-max">
+                {articleData[0].category}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mt-3 leading-tight">
+                {articleData[0].title}
+              </h2>
+              <p className="text-gray-600 mt-4 flex-grow">
+                {articleData[0].excerpt}
+              </p>
+              <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 text-gray-500 text-sm">
+                <div className="flex items-center">
+                  <CalendarIcon className="w-4 h-4 mr-1" />
+                  <span>{articleData[0].date}</span>
                 </div>
-
-                <div className="flex justify-between items-center mt-5 text-gray-500 text-sm">
-                  <div className="flex gap-4">
-                    <div className="flex items-center">
-                      <CalendarIcon className="w-5 h-5 mr-1" />
-                      <span>{article.date}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <ClockIcon className="w-5 h-5 mr-1" />
-                      <span>{article.readTime}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <Link
-                      to={article.link}
-                      className="flex items-center text-white bg-sky-600 hover:bg-sky-700 font-medium px-5 py-2 rounded-lg shadow-md text-lg"
-                    >
-                      Read More
-                      <ChevronRightIcon className="w-6 h-6 ml-2" />
-                    </Link>
-                  </div>
+                <div className="flex items-center">
+                  <ClockIcon className="w-4 h-4 mr-1" />
+                  <span>{articleData[0].readTime}</span>
                 </div>
               </div>
-            ))}
+              <Link
+                to={articleData[0].link}
+                className="mt-6 inline-flex items-center justify-center bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 px-6 rounded-lg text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300 w-full md:w-auto"
+              >
+                Read Featured Article
+                <ChevronRightIcon className="w-5 h-5 ml-1" />
+              </Link>
+            </div>
+            <div className="md:w-5/12 bg-gradient-to-r from-sky-600/20 to-slate-600/20 flex items-center justify-center p-8">
+              <div className="w-full h-full bg-white/60 backdrop-blur-sm rounded-xl p-6 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 mx-auto bg-gradient-to-r from-sky-600 to-slate-600 rounded-full flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-10 w-10 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                      />
+                    </svg>
+                  </div>
+                  <p className="mt-4 text-xl font-semibold text-gray-800">
+                    Featured Guide
+                  </p>
+                  <p className="mt-2 text-gray-600">
+                    Our most popular article for beginners.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
+      )}
+
+      {/* Rest of Articles in a Better Layout for 6 Remaining Articles */}
+      <main className="max-w-6xl mx-auto px-6 pb-16">
+        {articleData.length > 1 ? (
+          <>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              More Helpful Guides
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {articleData.slice(1).map((article) => (
+                <div
+                  key={article.id}
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col"
+                >
+                  {/* Card Header with Gradient */}
+                  <div className="h-3 bg-gradient-to-r from-sky-600 to-slate-600"></div>
+
+                  <div className="p-6 flex flex-col flex-grow">
+                    <span className="bg-sky-100 text-sky-800 text-xs font-semibold px-3 py-1 rounded-full w-max">
+                      {article.category}
+                    </span>
+
+                    <h2 className="text-xl font-bold text-gray-800 mt-3 leading-tight">
+                      {article.title}
+                    </h2>
+
+                    <p className="text-gray-600 mt-3 flex-grow">
+                      {article.excerpt}
+                    </p>
+
+                    <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-100 text-gray-500 text-sm">
+                      <div className="flex items-center">
+                        <CalendarIcon className="w-4 h-4 mr-1" />
+                        <span>{article.date}</span>
+                      </div>
+                      <div className="flex items-center">
+                        <ClockIcon className="w-4 h-4 mr-1" />
+                        <span>{article.readTime}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Link
+                    to={article.link}
+                    className="block bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300"
+                  >
+                    <div className="flex items-center justify-center">
+                      Read Article
+                      <ChevronRightIcon className="w-5 h-5 ml-1" />
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="text-center py-12">
-            <h2 className="text-gray-900 font-medium mt-4 text-2xl">No articles available</h2>
-            <p className="text-gray-600 text-lg">New articles will appear here when added.</p>
+          <div className="text-center py-16 bg-white rounded-2xl shadow-md">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-16 w-16 mx-auto text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
+            </svg>
+            <h2 className="text-gray-800 font-medium mt-4 text-2xl">
+              No articles available
+            </h2>
+            <p className="text-gray-600 mt-2">
+              New articles will appear here when added.
+            </p>
+            <button className="mt-6 px-6 py-3 bg-gradient-to-r from-sky-600 to-slate-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition">
+              Check back later
+            </button>
           </div>
         )}
       </main>
