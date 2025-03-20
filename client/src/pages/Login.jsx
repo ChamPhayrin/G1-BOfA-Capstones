@@ -75,23 +75,44 @@ export default function Login() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col md:flex-row">
-      {/* Image Column - Now on the left */}
-      <div
-        className="hidden md:block md:w-1/2 bg-cover bg-center"
-        style={{ backgroundImage: 'url("./techMan.jpg")' }}
-        aria-hidden="true"
-      ></div>
+    <main className="min-h-screen flex flex-col md:flex-row overflow-hidden">
+      {/* Left Column - Enhanced Image Section */}
+      <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-sky-700 to-slate-800 relative overflow-hidden">
+        {/* Decorative Elements */}
 
-      {/* Form Column - Now on the right */}
-      <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-4/5 h-4/5 overflow-hidden rounded-2xl shadow-2xl border-4 border-white/20">
+            <img
+              src="./techMan.jpg"
+              alt="Technology user"
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
+            <div className="absolute bottom-0 left-0 p-8 text-white"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column - Enhanced Form Section */}
+      <div className="w-full md:w-1/2 bg-gradient-to-b from-gray-50 to-gray-100 p-8 flex flex-col justify-center">
+        {/* Mobile Banner - Only visible on small screens */}
+        <div className="md:hidden bg-gradient-to-r from-sky-600 to-slate-600 -mx-8 -mt-8 mb-8 p-6 text-white">
+          <h2
+            className="text-2xl font-bold text-center"
+            style={{ fontFamily: "Pacifico, cursive" }}
+          >
+            TechEase
+          </h2>
+          <p className="text-center text-white/90">Access your account</p>
+        </div>
+
         <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
           <div className="relative h-16 bg-gradient-to-r from-sky-600 to-slate-600">
             <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-indigo-600"
+                  className="h-6 w-6 text-sky-600"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -108,20 +129,23 @@ export default function Login() {
           </div>
 
           <div className="p-8 pt-10">
-            <h1 className="text-2xl font-bold text-center text-gray-800 mb-8">
+            <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
               Welcome Back
             </h1>
+            <p className="text-center text-gray-600 mb-8">
+              Sign in to access your account
+            </p>
 
             {errMsg && (
               <div
                 ref={errRef}
-                className="mb-4 p-3 bg-red-50 border-l-4 border-red-500 text-red-700 rounded"
+                className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-lg shadow-sm"
                 aria-live="assertive"
               >
                 <div className="flex items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2"
+                    className="h-5 w-5 mr-2 text-red-500"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -133,12 +157,12 @@ export default function Login() {
                       d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                     />
                   </svg>
-                  {errMsg}
+                  <span>{errMsg}</span>
                 </div>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="username"
@@ -171,7 +195,7 @@ export default function Login() {
                     onChange={(e) => setUser(e.target.value)}
                     value={user}
                     required
-                    className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="pl-10 w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors"
                     placeholder="Enter your username"
                   />
                 </div>
@@ -207,12 +231,12 @@ export default function Login() {
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}
                     required
-                    className="pl-10 w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="pl-10 w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
                     aria-label={
                       showPassword ? "Hide password" : "Show password"
@@ -223,27 +247,29 @@ export default function Login() {
                 </div>
               </div>
 
-              {/* Trust Account Checkbox */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="trustAccount"
-                  checked={trustAccount}
-                  onChange={handleTrustAccountChange}
-                  className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-                <label
-                  htmlFor="trustAccount"
-                  className="ml-2 text-sm text-gray-700"
-                >
-                  Trust this device
-                </label>
+              {/* Trust Account Checkbox - Enhanced */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="trustAccount"
+                    checked={trustAccount}
+                    onChange={handleTrustAccountChange}
+                    className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
+                  />
+                  <label
+                    htmlFor="trustAccount"
+                    className="ml-2 text-sm text-gray-700"
+                  >
+                    Trust this device
+                  </label>
+                </div>
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r from-sky-600 to-slate-600 hover:from-sky-700 hover:to-slate-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 transition duration-200 flex justify-center items-center"
+                className="w-full py-3 px-4 border border-transparent rounded-lg text-white bg-gradient-to-r from-sky-600 to-slate-600 hover:from-sky-700 hover:to-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500 shadow-md transition duration-200 flex justify-center items-center"
               >
                 {isLoading ? (
                   <svg
@@ -272,12 +298,12 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="text-center mt-6">
+            <div className="text-center mt-4">
               <p className="text-sm text-gray-600">
                 Need an Account?{" "}
                 <Link
                   to="/signup"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-sky-600 hover:text-sky-500 transition-colors"
                 >
                   Sign up
                 </Link>

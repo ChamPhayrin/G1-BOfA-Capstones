@@ -78,11 +78,11 @@ export default function Footer() {
             >
               Quick Links
             </h3>
-            <ul className="space-y-3 list-none pl-0">
+            <ul className="space-y-3 pl-0">
               <li>
                 <NavLink
                   to="/"
-                  className="flex items-center group text-white/80 hover:text-white transition-colors duration-200"
+                  className="flex items-center pl-0 group text-white/80 hover:text-white transition-colors duration-200"
                 >
                   <span className="w-2 h-2 rounded-full bg-white/50 group-hover:bg-white mr-2 transition-colors duration-200"></span>
                   Home
@@ -91,7 +91,7 @@ export default function Footer() {
               <li>
                 <NavLink
                   to="/articles"
-                  className="flex items-center group text-white/80 hover:text-white transition-colors duration-200"
+                  className="flex items-center group pl-0 text-white/80 hover:text-white transition-colors duration-200"
                 >
                   <span className="w-2 h-2 rounded-full bg-white/50 group-hover:bg-white mr-2 transition-colors duration-200"></span>
                   Articles
