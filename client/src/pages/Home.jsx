@@ -33,8 +33,8 @@ const Home = () => {
         `}
       </style>
 
-      {/* Hero Header with Gradient - matching article page */}
-      <header className="bg-gradient-to-r from-sky-600 to-slate-600 text-white py-16 px-6 shadow-lg w-full">
+      {/* Hero Header with Gradient - Enhanced contrast for accessibility */}
+      <header className="bg-gradient-to-r from-sky-700 to-slate-700 text-white py-16 px-6 shadow-lg w-full">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 md:pr-8 text-center md:text-left mb-8 md:mb-0">
             <h1
@@ -44,7 +44,7 @@ const Home = () => {
             >
               Bringing the Digital World Closer to You
             </h1>
-            <p className="mt-4 text-xl text-white/90">
+            <p className="mt-4 text-xl text-white">
               Simple guides to help you connect with technology and loved ones
               with confidence.
             </p>
@@ -87,7 +87,7 @@ const Home = () => {
           finding information, and enjoying content easier than ever.
         </p>
 
-        {/* Social Cards with updated styling to match article cards */}
+        {/* Social Cards with updated styling to match article cards - Fixed contrast issues */}
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           role="list"
@@ -97,8 +97,8 @@ const Home = () => {
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col"
             role="listitem"
           >
-            {/* Card Header with Gradient - matching article cards */}
-            <div className="h-3 bg-gradient-to-r from-sky-600 to-slate-600"></div>
+            {/* Card Header with Gradient - Fixed for better contrast */}
+            <div className="h-3 bg-gradient-to-r from-sky-700 to-slate-700"></div>
 
             <div className="p-6 flex flex-col items-center text-center flex-grow">
               <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
@@ -120,7 +120,7 @@ const Home = () => {
               onClick={() =>
                 (window.location.href = "https://www.facebook.com/")
               }
-              className="w-full bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300 flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-sky-700 to-slate-700 text-white py-3 text-center font-medium hover:from-sky-800 hover:to-slate-800 transition-all duration-300 flex items-center justify-center"
               aria-label="Visit Facebook"
             >
               <span>Visit Facebook</span>
@@ -144,7 +144,7 @@ const Home = () => {
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col"
             role="listitem"
           >
-            <div className="h-3 bg-gradient-to-r from-sky-600 to-slate-600"></div>
+            <div className="h-3 bg-gradient-to-r from-sky-700 to-slate-700"></div>
 
             <div className="p-6 flex flex-col items-center text-center flex-grow">
               <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mb-4">
@@ -165,7 +165,7 @@ const Home = () => {
               onClick={() =>
                 (window.location.href = "https://workspace.google.com/gmail/")
               }
-              className="w-full bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300 flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-sky-700 to-slate-700 text-white py-3 text-center font-medium hover:from-sky-800 hover:to-slate-800 transition-all duration-300 flex items-center justify-center"
               aria-label="Check your Gmail Inbox"
             >
               <span>Visit Gmail</span>
@@ -189,7 +189,7 @@ const Home = () => {
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col"
             role="listitem"
           >
-            <div className="h-3 bg-gradient-to-r from-sky-600 to-slate-600"></div>
+            <div className="h-3 bg-gradient-to-r from-sky-700 to-slate-700"></div>
 
             <div className="p-6 flex flex-col items-center text-center flex-grow">
               <div className="w-20 h-20 rounded-full bg-red-100 flex items-center justify-center mb-4">
@@ -210,7 +210,7 @@ const Home = () => {
               onClick={() =>
                 (window.location.href = "https://www.youtube.com/")
               }
-              className="w-full bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300 flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-sky-700 to-slate-700 text-white py-3 text-center font-medium hover:from-sky-800 hover:to-slate-800 transition-all duration-300 flex items-center justify-center"
               aria-label="Watch videos on YouTube"
             >
               <span>Visit YouTube</span>
@@ -234,7 +234,7 @@ const Home = () => {
             className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden flex flex-col"
             role="listitem"
           >
-            <div className="h-3 bg-gradient-to-r from-sky-600 to-slate-600"></div>
+            <div className="h-3 bg-gradient-to-r from-sky-700 to-slate-700"></div>
 
             <div className="p-6 flex flex-col items-center text-center flex-grow">
               <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center mb-4">
@@ -253,7 +253,7 @@ const Home = () => {
 
             <button
               onClick={() => (window.location.href = "https://www.google.com/")}
-              className="w-full bg-gradient-to-r from-sky-600 to-slate-600 text-white py-3 text-center font-medium hover:from-sky-700 hover:to-slate-700 transition-all duration-300 flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-sky-700 to-slate-700 text-white py-3 text-center font-medium hover:from-sky-800 hover:to-slate-800 transition-all duration-300 flex items-center justify-center"
               aria-label="Search on Google"
             >
               <span>Visit Google</span>
@@ -274,8 +274,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why Learn Technology Section - New */}
-      <section className="w-full bg-gradient-to-r from-sky-600 to-slate-600 text-white py-16 mt-20">
+      {/* Why Learn Technology Section - With fixed contrast */}
+      <section className="w-full bg-gradient-to-r from-sky-700 to-slate-700 text-white py-16 mt-20">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl font-bold mb-10 text-center logo-font">
             Why Learn Technology?
@@ -302,7 +302,7 @@ const Home = () => {
               <h3 className="text-xl font-bold mb-3 text-center">
                 Stay Connected
               </h3>
-              <p className="text-white/80 text-center">
+              <p className="text-white text-center">
                 Keep in touch with family and friends through video calls,
                 messages, and social media.
               </p>
@@ -328,7 +328,7 @@ const Home = () => {
               <h3 className="text-xl font-bold mb-3 text-center">
                 Learn New Things
               </h3>
-              <p className="text-white/80 text-center">
+              <p className="text-white text-center">
                 Access online courses, tutorials, and information on any topic
                 that interests you.
               </p>
@@ -354,7 +354,7 @@ const Home = () => {
               <h3 className="text-xl font-bold mb-3 text-center">
                 Simplify Daily Tasks
               </h3>
-              <p className="text-white/80 text-center">
+              <p className="text-white text-center">
                 Make everyday activities easier with online shopping, banking,
                 and appointment scheduling.
               </p>
@@ -382,7 +382,7 @@ const Home = () => {
               </p>
               <Link
                 to="/articles"
-                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-sky-600 to-slate-600 text-white font-medium rounded-lg shadow-md hover:from-sky-700 hover:to-slate-700 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-sky-700 to-slate-700 text-white font-medium rounded-lg shadow-md hover:from-sky-800 hover:to-slate-800 transition-colors"
               >
                 Browse All Articles
                 <svg
@@ -401,7 +401,7 @@ const Home = () => {
             </div>
             <div className="md:w-1/3">
               <div className="bg-gradient-to-r from-sky-600/10 to-slate-600/10 p-6 rounded-xl">
-                <div className="w-16 h-16 bg-gradient-to-r from-sky-600 to-slate-600 rounded-full flex items-center justify-center mb-4 mx-auto">
+                <div className="w-16 h-16 bg-gradient-to-r from-sky-700 to-slate-700 rounded-full flex items-center justify-center mb-4 mx-auto">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-8 w-8 text-white"
