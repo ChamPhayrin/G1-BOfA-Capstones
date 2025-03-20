@@ -40,7 +40,7 @@ const handleLogin = async (req, res) => {
         UserInfo: {
           username: foundUser.username,
           userId: foundUser.id,
-          role_code: foundUser.role_code, // Include role_code in the token payload
+          role_code: foundUser.role_code,
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -58,20 +58,39 @@ const handleLogin = async (req, res) => {
     const updateRefreshTokenQuery = 'UPDATE users SET refreshToken = ? WHERE username = ?';
     await connection.execute(updateRefreshTokenQuery, [refreshToken, foundUser.username]);
 
-    // Set the refresh token in an HTTP-only cookie
-    res.cookie("jwt", refreshToken, {
+    // Set the access token in a cookie
+    res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Send cookie only over HTTPS in production
-      sameSite: 'Strict', // Prevent CSRF attacks
+      secure: process.env.NODE_ENV === 'production', // HTTPS in production
+      sameSite: 'Strict',
+      maxAge: 15 * 60 * 1000, // 15 minutes (matches access token expiry)
+    });
+
+    // Set the refresh token in an HTTP-only cookie
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // HTTPS in production
+      sameSite: 'Strict',
+      maxAge: 24 * 60 * 60 * 1000, // 1 day (matches refresh token expiry)
+    });
+
+    // Set user ID and role in cookies (optional, if needed)
+    res.cookie("userId", foundUser.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
-    // Send the access token, user_id, and role_code in the response
-    res.json({ 
-      accessToken, 
-      user_id: foundUser.id, // Include user_id in the response
-      role_code: foundUser.role_code, // Include role_code in the response
+    res.cookie("role_code", foundUser.role_code, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict',
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
+
+    // Send a success response (no data in the body)
+    res.status(200).json({ message: "Login successful" });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Internal server error" });

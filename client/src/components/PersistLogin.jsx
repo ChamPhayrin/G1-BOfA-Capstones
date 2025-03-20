@@ -9,13 +9,13 @@ const PersistLogin = () => {
   const { auth, persist } = useAuth();
 
   useEffect(() => {
-    let isMounted = true; // Prevent state updates if the component unmounts
+    let isMounted = true;
 
     const verifyRefreshToken = async () => {
       try {
-        await refresh();
+        await refresh(); // Refresh the access token using the refresh token
       } catch (error) {
-        console.error(error);
+        console.error("Error refreshing token:", error);
       } finally {
         if (isMounted) {
           setIsLoading(false);
@@ -23,7 +23,7 @@ const PersistLogin = () => {
       }
     };
 
-    // If there's no access token and persistence is enabled, try refreshing
+    // Only verify refresh token if persistence is enabled and no access token exists
     if (persist && !auth?.accessToken) {
       verifyRefreshToken();
     } else {
@@ -32,18 +32,10 @@ const PersistLogin = () => {
 
     return () => {
       isMounted = false;
-    }; // Cleanup function to prevent memory leaks
+    };
   }, [auth, persist, refresh]);
 
-  useEffect(() => {
-  }, [isLoading, auth]);
-
-  // Conditionally render the Outlet based on persist and loading state
-  if (isLoading) {
-    return <p>Loading...</p>; // Show loading until the refresh token process is complete
-  }
-
-  return <Outlet />; // Render the Outlet after loading is complete
+  return isLoading ? <p>Loading...</p> : <Outlet />;
 };
 
 export default PersistLogin;

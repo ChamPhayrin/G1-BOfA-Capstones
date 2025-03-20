@@ -7,27 +7,24 @@ const useRefreshToken = () => {
   const refresh = async () => {
     try {
       const response = await axios.get("/refresh", {
-        withCredentials: true, // Allows sending cookies with the request
+        withCredentials: true, // Include cookies in the request
       });
 
-      // Update the authentication state with the new access token
-      setAuth((prev) => {
-        return { 
-          ...prev, 
-          roles: response.data.roles,
-          accessToken: response.data.accessToken
-        };
-      });
+      setAuth((prev) => ({
+        ...prev,
+        accessToken: response.data.accessToken,
+        user: response.data.user,
+        roles: response.data.roles,
+      }));
 
-      // Return the new access token for use in the interceptor
       return response.data.accessToken;
     } catch (error) {
       console.error("Error refreshing token:", error);
-      throw error; // Propagate the error to the caller
+      throw error;
     }
   };
 
-  return refresh; // Return the refresh function
+  return refresh;
 };
 
 export default useRefreshToken;

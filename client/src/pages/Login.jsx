@@ -34,8 +34,10 @@ export default function Login() {
 
   // Handle trust account checkbox change
   const handleTrustAccountChange = () => {
-    setTrustAccount((prev) => !prev);
-    setPersist((prev) => !prev);
+    const newTrustAccount = !trustAccount;
+    setTrustAccount(newTrustAccount);
+    setPersist(newTrustAccount);
+    localStorage.setItem("persist", newTrustAccount);
   };
 
   // Handle form submission
@@ -52,10 +54,14 @@ export default function Login() {
           withCredentials: true,
         }
       );
+
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.role_code;
       const user_id = response?.data?.user_id;
+
       setAuth({ user, roles, accessToken, user_id });
+      setUser("");
+      setPwd("");
       navigate(from, { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
@@ -66,7 +72,7 @@ export default function Login() {
       } else if (error.response?.status === 401) {
         setErrMsg("Incorrect Username or Password");
       } else {
-        setErrMsg("Login Failed");
+        setErrMsg(error.response?.data?.message || "Login Failed");
       }
       errRef.current.focus();
     } finally {
@@ -78,8 +84,6 @@ export default function Login() {
     <main className="min-h-screen flex flex-col md:flex-row overflow-hidden">
       {/* Left Column - Enhanced Image Section */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-sky-700 to-slate-800 relative overflow-hidden">
-        {/* Decorative Elements */}
-
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="relative w-4/5 h-4/5 overflow-hidden rounded-2xl shadow-2xl border-4 border-white/20">
             <img
@@ -88,7 +92,6 @@ export default function Login() {
               className="w-full h-full object-cover object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent"></div>
-            <div className="absolute bottom-0 left-0 p-8 text-white"></div>
           </div>
         </div>
       </div>
@@ -97,10 +100,7 @@ export default function Login() {
       <div className="w-full md:w-1/2 bg-gradient-to-b from-gray-50 to-gray-100 p-8 flex flex-col justify-center">
         {/* Mobile Banner - Only visible on small screens */}
         <div className="md:hidden bg-gradient-to-r from-sky-600 to-slate-600 -mx-8 -mt-8 mb-8 p-6 text-white">
-          <h2
-            className="text-2xl font-bold text-center"
-            style={{ fontFamily: "Pacifico, cursive" }}
-          >
+          <h2 className="text-2xl font-bold text-center" style={{ fontFamily: "Pacifico, cursive" }}>
             TechEase
           </h2>
           <p className="text-center text-white/90">Access your account</p>
@@ -129,12 +129,8 @@ export default function Login() {
           </div>
 
           <div className="p-8 pt-10">
-            <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
-              Welcome Back
-            </h1>
-            <p className="text-center text-gray-600 mb-8">
-              Sign in to access your account
-            </p>
+            <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">Welcome Back</h1>
+            <p className="text-center text-gray-600 mb-8">Sign in to access your account</p>
 
             {errMsg && (
               <div
@@ -164,10 +160,7 @@ export default function Login() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
                   Username
                 </label>
                 <div className="relative">
@@ -195,6 +188,7 @@ export default function Login() {
                     onChange={(e) => setUser(e.target.value)}
                     value={user}
                     required
+                    disabled={isLoading}
                     className="pl-10 w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors"
                     placeholder="Enter your username"
                   />
@@ -202,10 +196,7 @@ export default function Login() {
               </div>
 
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                   Password
                 </label>
                 <div className="relative">
@@ -231,6 +222,8 @@ export default function Login() {
                     onChange={(e) => setPwd(e.target.value)}
                     value={pwd}
                     required
+                    disabled={isLoading}
+                    autoComplete="off"
                     className="pl-10 w-full py-3 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors"
                     placeholder="Enter your password"
                   />
@@ -238,16 +231,14 @@ export default function Login() {
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
-                    aria-label={
-                      showPassword ? "Hide password" : "Show password"
-                    }
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                   </button>
                 </div>
               </div>
 
-              {/* Trust Account Checkbox - Enhanced */}
+              {/* Trust Account Checkbox */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
@@ -255,12 +246,10 @@ export default function Login() {
                     id="trustAccount"
                     checked={trustAccount}
                     onChange={handleTrustAccountChange}
+                    disabled={isLoading}
                     className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
                   />
-                  <label
-                    htmlFor="trustAccount"
-                    className="ml-2 text-sm text-gray-700"
-                  >
+                  <label htmlFor="trustAccount" className="ml-2 text-sm text-gray-700">
                     Trust this device
                   </label>
                 </div>
