@@ -2,8 +2,6 @@ const allowedOrigins = [
   "https://g1-bofa-capstones.onrender.com",
   "https://g1-b-of-a-capstones.vercel.app",
   "https://g1-b-of-a-capstones-git-main-champhayrins-projects.vercel.app",
-  "https://g1-bofa-capstones.onrender.com/auth",
-  "https://g1-bofa-capstones.onrender.com/signup"
 ];
 
 const corsOptions = {
