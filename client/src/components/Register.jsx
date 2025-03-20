@@ -151,7 +151,7 @@ export default function Register({
           </div>
           <div
             className="hidden md:block w-1/2 bg-cover bg-center"
-            style={{ backgroundImage: 'url("./public/cuties.avif")' }}
+            style={{ backgroundImage: 'url("/cuties.avif")' }}
             aria-hidden="true"
           ></div>
         </section>
@@ -159,7 +159,8 @@ export default function Register({
         <section className="w-full flex">
           <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
             <div className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="relative h-16 bg-gradient-to-r from-sky-600 to-slate-600">
+              {/* Fixed gradient header for better contrast */}
+              <div className="relative h-16 bg-gradient-to-r from-sky-700 to-slate-700">
                 <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
                     <svg
@@ -543,6 +544,7 @@ export default function Register({
                     <input type="password" autoComplete="current-password" />
                   </div>
 
+                  {/* Fixed button gradient for better contrast */}
                   <button
                     type="submit"
                     disabled={
@@ -552,7 +554,7 @@ export default function Register({
                       !validMatch ||
                       isLoading
                     }
-                    className="w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r from-sky-600 to-slate-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 flex justify-center disabled:bg-indigo-300 disabled:cursor-not-allowed"
+                    className="w-full py-2 px-4 border border-transparent rounded-lg shadow-sm text-white bg-gradient-to-r from-sky-700 to-slate-700 hover:from-sky-800 hover:to-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-200 flex justify-center disabled:bg-indigo-300 disabled:cursor-not-allowed"
                     aria-label="Sign up"
                   >
                     {isLoading ? (
@@ -597,7 +599,7 @@ export default function Register({
 
           <div
             className="hidden md:block w-1/2 bg-cover bg-center"
-            style={{ backgroundImage: 'url("./cuties.avif")' }}
+            style={{ backgroundImage: 'url("/cuties.avif")' }}
             aria-hidden="true"
           ></div>
         </section>

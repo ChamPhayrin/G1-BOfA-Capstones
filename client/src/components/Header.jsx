@@ -242,18 +242,6 @@ export default function Header() {
                         {isAdmin ? "Admin" : "Account"}
                       </button>
                     </li>
-                    <li>
-                      <NavLink
-                        to="/logout"
-                        className="flex items-center p-4 rounded-lg transition duration-200 hover:bg-white/10 hover:text-white font-medium"
-                      >
-                        <FontAwesomeIcon
-                          icon={faSignOutAlt}
-                          className="w-6 h-6 mr-3"
-                        />
-                        Logout
-                      </NavLink>
-                    </li>
                   </>
                 ) : (
                   <li>
