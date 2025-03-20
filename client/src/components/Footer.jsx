@@ -135,7 +135,7 @@ export default function Footer() {
                 <span>
                   123 Innovation Drive
                   <br />
-                  Tech Valley, CA 94043
+                  Tech Valley, NC 94043
                 </span>
               </p>
               <p className="flex items-center">
