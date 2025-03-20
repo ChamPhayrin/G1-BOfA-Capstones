@@ -173,7 +173,11 @@ const Contact = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-5"
+              autoComplete="off" // Disable autocomplete for the entire form
+            >
               {/* Name */}
               <div>
                 <label
@@ -191,6 +195,7 @@ const Contact = () => {
                   className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your name"
                   required
+                  autoComplete="off"
                 />
               </div>
 
@@ -212,6 +217,7 @@ const Contact = () => {
                   className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your email"
                   required
+                  autoComplete="off"
                 />
                 {emailFocus && email && !validEmail && (
                   <p className="text-xs text-red-500 mt-1">
@@ -234,6 +240,7 @@ const Contact = () => {
                   onChange={(e) => setSubject(e.target.value)}
                   className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   required
+                  autoComplete="off"
                 >
                   <option value="">Select a Subject</option>
                   <option value="General Inquiry">General Inquiry</option>
@@ -258,6 +265,7 @@ const Contact = () => {
                   className="w-full py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your message"
                   required
+                  autoComplete="off"
                 />
               </div>
 
