@@ -4,5 +4,5 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  external: ["@fortawesome/react-fontawesome"],
+  external: ["@fortawesome/react-fontawesome"]
 });

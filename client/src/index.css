@@ -13,38 +13,3 @@ ul {
 body {
   @apply font-bold text-gray-900;
 }
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animated-background {
-  background: linear-gradient(-45deg, #13a6cf, #0b2956, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-}
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.bg-gradient-animation {
-  background: linear-gradient(-45deg, #13a6cf, #0b2956, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
-}
