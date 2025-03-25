@@ -35,7 +35,6 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
@@ -47,6 +46,7 @@ function App() {
         <Route path="/amazon" element={<Amazon />} />
         <Route path="/google-maps" element={<GoogleMaps />} />
         <Route path="/articles" element={<Articles />} />
+        <Route path="/contact" element={<Contact />} />
 
         {/* Protected Routes */}
         <Route element={<PersistLogin />}>

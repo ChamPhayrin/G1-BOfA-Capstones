@@ -10,9 +10,7 @@ import {
   faEnvelope,
   faUser,
   faSignInAlt,
-  faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,18 +18,14 @@ export default function Header() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Close the mobile menu when the route changes
+  // Close mobile menu when route changes
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
-  // Check if the user is logged in based on the presence of auth data
   const isLoggedIn = !!auth?.user_id;
-
-  // Check if the user is an admin (role code 5150)
   const isAdmin = auth?.roles === 5150;
 
-  // Handle account navigation
   const handleAccountClick = () => {
     if (isAdmin) {
       navigate("/admin");
@@ -42,11 +36,8 @@ export default function Header() {
 
   return (
     <header className="bg-gradient-to-r from-sky-600 to-slate-600 text-white sticky top-0 z-50 shadow-lg">
-      <nav
-        className="py-3 px-5 flex justify-between items-center max-w-7xl mx-auto"
-        aria-label="Main Navigation"
-      >
-        {/* Hamburger Menu Button */}
+      <nav className="py-3 px-5 flex justify-between items-center max-w-7xl mx-auto" aria-label="Main Navigation">
+        {/* Mobile menu button */}
         <button
           onClick={() => setMenuOpen(true)}
           className="lg:hidden focus:outline-none focus:ring-2 focus:ring-white/50 rounded-lg p-1 transition duration-200"
@@ -70,9 +61,7 @@ export default function Header() {
             to="/"
             className={({ isActive }) =>
               `px-5 py-3 rounded-lg transition duration-200 text-lg font-medium ${
-                isActive
-                  ? "bg-white/10 text-white"
-                  : "hover:bg-white/10 hover:text-white"
+                isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
               }`
             }
           >
@@ -84,9 +73,7 @@ export default function Header() {
             to="/articles"
             className={({ isActive }) =>
               `px-5 py-3 rounded-lg transition duration-200 text-lg font-medium ${
-                isActive
-                  ? "bg-white/10 text-white"
-                  : "hover:bg-white/10 hover:text-white"
+                isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
               }`
             }
           >
@@ -98,9 +85,7 @@ export default function Header() {
             to="/contact"
             className={({ isActive }) =>
               `px-5 py-3 rounded-lg transition duration-200 text-lg font-medium ${
-                isActive
-                  ? "bg-white/10 text-white"
-                  : "hover:bg-white/10 hover:text-white"
+                isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
               }`
             }
           >
@@ -113,10 +98,7 @@ export default function Header() {
               onClick={handleAccountClick}
               className="px-5 py-3 rounded-lg transition duration-200 hover:bg-white/10 hover:text-white flex items-center text-lg font-medium"
             >
-              <FontAwesomeIcon
-                icon={isAdmin ? faUser : faUser}
-                className="mr-2"
-              />
+              <FontAwesomeIcon icon={faUser} className="mr-2" />
               {isAdmin ? "Admin" : "Account"}
             </button>
           ) : (
@@ -124,9 +106,7 @@ export default function Header() {
               to="/login"
               className={({ isActive }) =>
                 `px-5 py-3 rounded-lg transition duration-200 text-lg font-medium ${
-                  isActive
-                    ? "bg-white/10 text-white"
-                    : "hover:bg-white/10 hover:text-white"
+                  isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
                 }`
               }
             >
@@ -134,19 +114,9 @@ export default function Header() {
               Login
             </NavLink>
           )}
-
-          {isLoggedIn && (
-            <NavLink
-              to="/logout"
-              className="px-5 py-3 rounded-lg transition duration-200 hover:bg-white/10 hover:text-white text-lg font-medium"
-            >
-              <FontAwesomeIcon icon={faSignOutAlt} className="mr-2" />
-              Logout
-            </NavLink>
-          )}
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation */}
         {menuOpen && (
           <div
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
@@ -157,15 +127,8 @@ export default function Header() {
               className="bg-gradient-to-b from-sky-600 to-slate-600 w-72 h-full p-6 shadow-lg rounded-r-2xl transition-transform duration-300 transform translate-x-0"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header in mobile menu */}
               <div className="flex items-center justify-between mb-8 border-b border-white/20 pb-4">
-                <div>
-                  <img
-                    src="/finalLogoo.png"
-                    alt="Website Logo"
-                    className="w-40 h-20"
-                  />
-                </div>
+                <img src="/finalLogoo.png" alt="Website Logo" className="w-40 h-20" />
                 <button
                   onClick={() => setMenuOpen(false)}
                   className="text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition duration-200"
@@ -175,16 +138,13 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* Mobile Navigation Links */}
               <ul className="space-y-3 text-xl list-none pl-0">
                 <li>
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
                       `flex items-center p-4 rounded-lg transition duration-200 font-medium ${
-                        isActive
-                          ? "bg-white/10 text-white"
-                          : "hover:bg-white/10 hover:text-white"
+                        isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
                       }`
                     }
                   >
@@ -197,16 +157,11 @@ export default function Header() {
                     to="/articles"
                     className={({ isActive }) =>
                       `flex items-center p-4 rounded-lg transition duration-200 font-medium ${
-                        isActive
-                          ? "bg-white/10 text-white"
-                          : "hover:bg-white/10 hover:text-white"
+                        isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
                       }`
                     }
                   >
-                    <FontAwesomeIcon
-                      icon={faNewspaper}
-                      className="w-6 h-6 mr-3"
-                    />
+                    <FontAwesomeIcon icon={faNewspaper} className="w-6 h-6 mr-3" />
                     Articles
                   </NavLink>
                 </li>
@@ -215,57 +170,41 @@ export default function Header() {
                     to="/contact"
                     className={({ isActive }) =>
                       `flex items-center p-4 rounded-lg transition duration-200 font-medium ${
-                        isActive
-                          ? "bg-white/10 text-white"
-                          : "hover:bg-white/10 hover:text-white"
+                        isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
                       }`
                     }
                   >
-                    <FontAwesomeIcon
-                      icon={faEnvelope}
-                      className="w-6 h-6 mr-3"
-                    />
+                    <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 mr-3" />
                     Contact
                   </NavLink>
                 </li>
                 {isLoggedIn ? (
-                  <>
-                    <li>
-                      <button
-                        onClick={handleAccountClick}
-                        className="flex items-center p-4 rounded-lg w-full text-left transition duration-200 hover:bg-white/10 hover:text-white font-medium"
-                      >
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          className="w-6 h-6 mr-3"
-                        />
-                        {isAdmin ? "Admin" : "Account"}
-                      </button>
-                    </li>
-                  </>
+                  <li>
+                    <button
+                      onClick={handleAccountClick}
+                      className="flex items-center p-4 rounded-lg w-full text-left transition duration-200 hover:bg-white/10 hover:text-white font-medium"
+                    >
+                      <FontAwesomeIcon icon={faUser} className="w-6 h-6 mr-3" />
+                      {isAdmin ? "Admin" : "Account"}
+                    </button>
+                  </li>
                 ) : (
                   <li>
                     <NavLink
                       to="/login"
                       className={({ isActive }) =>
                         `flex items-center p-4 rounded-lg transition duration-200 font-medium ${
-                          isActive
-                            ? "bg-white/10 text-white"
-                            : "hover:bg-white/10 hover:text-white"
+                          isActive ? "bg-white/10 text-white" : "hover:bg-white/10 hover:text-white"
                         }`
                       }
                     >
-                      <FontAwesomeIcon
-                        icon={faSignInAlt}
-                        className="w-6 h-6 mr-3"
-                      />
+                      <FontAwesomeIcon icon={faSignInAlt} className="w-6 h-6 mr-3" />
                       Login
                     </NavLink>
                   </li>
                 )}
               </ul>
 
-              {/* Footer in mobile menu */}
               <div className="absolute bottom-8 left-0 right-0 px-6">
                 <div className="border-t border-white/20 pt-4 text-sm text-white/70">
                   {isLoggedIn ? (

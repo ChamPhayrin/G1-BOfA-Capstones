@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import axios from "../api/axios";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import useAuth from "../hooks/useAuth";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Contact = () => {
   const nameRef = useRef();
@@ -17,6 +19,11 @@ const Contact = () => {
   const [emailFocus, setEmailFocus] = useState(false);
 
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const axiosPrivate = useAxiosPrivate();
+  const { auth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Focus on the name field when the component loads
   useEffect(() => {
@@ -48,8 +55,8 @@ const Contact = () => {
     setIsLoading(true);
 
     try {
-      // Make the API call to submit the contact form
-      const response = await axios.post("/messages", {
+      // Make the API call using the private axios instance
+      await axiosPrivate.post("/messages", {
         name,
         email,
         subject,
@@ -63,14 +70,23 @@ const Contact = () => {
       setSubject("");
       setMessage("");
     } catch (error) {
-      // Error handling
-      if (error.response && error.response.status === 401) {
-        setErrMsg("Unauthorized. Please log in.");
+      // Enhanced error handling
+      if (!error?.response) {
+        setErrMsg("No server response");
+      } else if (error.response?.status === 401) {
+        // Redirect to login if unauthorized
+        navigate("/login", { state: { from: location }, replace: true });
+        return;
+      } else if (error.response?.status === 403) {
+        setErrMsg("Forbidden. You don't have permission.");
+      } else if (error.response?.status === 400) {
+        setErrMsg("Invalid request. Please check your inputs.");
       } else {
         setErrMsg("Failed to submit your message. Please try again later.");
       }
+      
       if (errRef.current) {
-        errRef.current.focus(); // Focus the error message
+        errRef.current.focus();
       }
     } finally {
       setIsLoading(false);
@@ -176,7 +192,7 @@ const Contact = () => {
             <form
               onSubmit={handleSubmit}
               className="space-y-5"
-              autoComplete="off" // Disable autocomplete for the entire form
+              autoComplete="off"
             >
               {/* Name */}
               <div>

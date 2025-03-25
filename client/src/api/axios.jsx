@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = 'https://g1-bofa-capstones.onrender.com';
+const BASE_URL = ' http://localhost:3000/';
 
 export default axios.create({
   baseURL: BASE_URL
