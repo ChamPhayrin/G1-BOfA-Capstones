@@ -3,7 +3,8 @@ const allowedOrigins = [
   "https://g1-b-of-a-capstones.vercel.app",
   "https://g1-b-of-a-capstones-git-main-champhayrins-projects.vercel.app",
   "http://localhost:5173",
-  "https://g1-bofa-capstones-1.onrender.com"
+  "https://g1-bofa-capstones-1.onrender.com",
+  "https://g1-b-of-a-capstones-fixed.vercel.app"
 ];
 
 const corsOptions = {
